@@ -1,7 +1,8 @@
 export interface WordItem {
   word: string;
+  id: string;
   createGmt: string;
-  unknown: boolean;
-  desc?: string;
+  familiar: boolean;
+  explanation?: string;
   audio?: string;
 }
