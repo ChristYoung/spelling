@@ -1,0 +1,48 @@
+.__MenuCard {
+    cursor: pointer;
+    .wrapper {
+        transition: background-color 250ms ease-out 0s;
+        max-width: 238px;
+        position: relative;
+        display: block;
+        margin: 0;
+        border-radius: 0.8rem;
+        padding: 1.5rem 2rem;
+        overflow: hidden;
+        background-color: #2b2b37;
+        &:hover {
+            background-color: transparent;
+            .bgContainer {
+                opacity: 1;
+            }
+        }
+        .bgContainer {
+            transition: opacity 250ms ease-out 0s;
+            opacity: 0;
+            display: block;
+            position: absolute;
+            inset: 0px;
+            z-index: -1;
+            background: linear-gradient(
+                330deg,
+                rgb(255 245 154 / 40%) 20%,
+                #ff6d6d66 100%
+            );
+        }
+        .cardIcon {
+            display: block;
+            margin-bottom: 1rem;
+        }
+        .cardTitle {
+            font-size: 2rem;
+            line-height: 3rem;
+            position: relative;
+        }
+        .desc {
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            font-weight: 300;
+            margin: 1rem 0 2rem 0;
+        }
+    }
+}
