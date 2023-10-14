@@ -1,22 +1,9 @@
 import './App.css';
-import { MenuCard } from './components/MenuCard';
-import { BsFillBrushFill } from 'react-icons/bs';
+import routerConfig from './routes';
+import { RouterProvider } from 'react-router-dom';
 
 function App() {
-    return (
-        <div className="flex">
-            <MenuCard
-                title="INPUT"
-                desc="You can input any words you are not familiar with."
-                icon={<BsFillBrushFill />}
-            />
-            <MenuCard
-                title="INPUT"
-                desc="You can input any words you are not familiar with."
-                icon={<BsFillBrushFill />}
-            />
-        </div>
-    );
+    return <RouterProvider router={routerConfig}></RouterProvider>;
 }
 
 export default App;
