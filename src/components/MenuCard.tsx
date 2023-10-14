@@ -1,5 +1,4 @@
 import { ReactElement } from 'react';
-import style from './MenuCard.module.scss';
 
 export interface MenuCardProps extends React.HTMLAttributes<HTMLDivElement> {
     title: string;
