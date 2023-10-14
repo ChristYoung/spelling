@@ -9,18 +9,15 @@ export interface MenuCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const MenuCard: React.FC<MenuCardProps> = (props: MenuCardProps) => {
-    const { title, desc, actionUrl, icon } = props;
+    const { title, desc, icon } = props;
     return (
-        <a
-            className={style['__MenuCard']}
-            href={actionUrl}
-            target="_blank">
+        <div className={style['__MenuCard']}>
             <span className={style.wrapper}>
                 <span className={style.bgContainer}></span>
                 <span className={style.cardIcon}>{icon}</span>
                 <h2 className={style.cardTitle}>{title}</h2>
                 <p className={style.desc}>{desc}</p>
             </span>
-        </a>
+        </div>
     );
 };
