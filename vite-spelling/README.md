@@ -25,3 +25,51 @@ If you are developing a production application, we recommend updating the config
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+# 使用Tailwind CSS 
+## 安装
+ - yarn add tailwindcss postcss autoprefixer -D
+ - tailwindcss init --postcss
+ - 修改postcss.config.js
+   ```js
+   module.exports = {
+   plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+   },
+   };
+   ```
+ - 修改tailwind.config.js
+   ```js
+   export default {
+   content: [ './index.html', './src/**/*.{ts,tsx}' ],
+   theme: {
+      extend: {
+         colors: {
+         'primary-light': '#F0F0F0',
+         'primary-dark': '#1B1A22',
+         }
+      },
+   },
+   plugins: [],
+   }
+   ```
+ - 修改src/index.css
+   ```css
+   @tailwind base;
+   @tailwind components;
+   @tailwind utilities;
+   ```
+ - 修改src/main.tsx
+   ```tsx
+   import React from 'react'
+   import ReactDOM from 'react-dom/client'
+   import App from './App.tsx'
+   import './index.css'
+
+   ReactDOM.createRoot(document.getElementById('root')!).render(
+   <React.StrictMode>
+      <App />
+   </React.StrictMode>,
+   )
+   ```
