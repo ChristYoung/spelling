@@ -1,12 +1,21 @@
 import './App.css';
+import { MenuCard } from './components/MenuCard';
+import { BsFillBrushFill } from 'react-icons/bs';
 
 function App() {
     return (
-        <>
-            <p className="underline text-lg hover:bg-red-500">
-                Click on the Vite and React logos to learn more
-            </p>
-        </>
+        <div className="flex">
+            <MenuCard
+                title="INPUT"
+                desc="You can input any words you are not familiar with."
+                icon={<BsFillBrushFill />}
+            />
+            <MenuCard
+                title="INPUT"
+                desc="You can input any words you are not familiar with."
+                icon={<BsFillBrushFill />}
+            />
+        </div>
     );
 }
 
