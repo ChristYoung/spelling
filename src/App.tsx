@@ -3,7 +3,11 @@ import routerConfig from './routes';
 import { RouterProvider } from 'react-router-dom';
 
 function App() {
-    return <RouterProvider router={routerConfig}></RouterProvider>;
+    return (
+        <>
+            <div className="underline">WOWOWOW</div>
+        </>
+    );
 }
 
 export default App;
