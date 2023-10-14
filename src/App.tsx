@@ -1,12 +1,9 @@
 import './App.css';
-import { MenuCard } from './components/MenuCard';
+import routerConfig from './routes';
+import { RouterProvider } from 'react-router-dom';
 
 function App() {
-    return (
-        <div className="App">
-            <MenuCard title="INPUT" />
-        </div>
-    );
+    return <RouterProvider router={routerConfig}></RouterProvider>;
 }
 
 export default App;
