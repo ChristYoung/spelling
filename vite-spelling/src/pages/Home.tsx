@@ -8,19 +8,19 @@ import {
 const MenuList: MenuCardProps[] = [
     {
         title: 'INPUT',
-        actionUrl: '',
+        actionUrl: 'input',
         icon: <BsFillLightningChargeFill></BsFillLightningChargeFill>,
         desc: 'You can input any words you are not familiar with.',
     },
     {
         title: 'SPELLING',
-        actionUrl: '',
+        actionUrl: 'spelling',
         icon: <BsSpellcheck></BsSpellcheck>,
         desc: 'You can practice spelling words by typing.',
     },
     {
         title: 'VIEW',
-        actionUrl: '',
+        actionUrl: 'view',
         icon: <BsEyeFill></BsEyeFill>,
         desc: 'View all of the words.(Including familiar or not)',
     },
