@@ -6,13 +6,26 @@ import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { WordsItem } from '../types';
 import { getDateString } from '../utils';
+import Typo from 'typo-js';
+
+const dictionary = new Typo('en_US');
 
 export const InputWords: React.FC = () => {
     const { add } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const value = useRef<string>('');
     const onSubmitWords = async () => {
         const words = value.current.trim().split('\n');
-        // TODO: Need to check whether the words you input has been spelled correctly with typo-js.
+        if (!words || words.length === 0) {
+            return;
+        }
+        for (const word of words) {
+            const spellCorrect = dictionary.check(word);
+            console.log('spellCorrect', spellCorrect);
+            if (!spellCorrect) {
+                alert(`${word}拼写有误!`);
+                return;
+            }
+        }
         const wordsToAdd: WordsItem[] = words.map(word => ({
             word,
             created_timestamp: 0,
