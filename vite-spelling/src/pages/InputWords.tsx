@@ -10,22 +10,19 @@ import { getDateString } from '../utils';
 export const InputWords: React.FC = () => {
     const { add } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const value = useRef<string>('');
-    const onSubmitWords = () => {
+    const onSubmitWords = async () => {
         const words = value.current.trim().split('\n');
         // TODO: Need to check whether the words you input has been spelled correctly with typo-js.
         const wordsToAdd: WordsItem[] = words.map(word => ({
             word,
-            created_timestamp: getDateString(),
+            created_timestamp: 0,
             familiar: false,
         }));
-        add({ ...wordsToAdd[0] }).then(
-            event => {
-                console.log('ID Generated: ', event);
-            },
-            error => {
-                console.log(error);
-            },
-        );
+        for (const word of wordsToAdd) {
+            word.created_timestamp = getDateString();
+            const _event = await add(word);
+            console.log('ID Generated: ', _event);
+        }
     };
     return (
         <div className="__InputWords text-6xl text-slate-600">

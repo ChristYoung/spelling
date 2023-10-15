@@ -10,7 +10,7 @@ initDB(DBConfig);
 function App() {
     return (
         <IndexedDB {...DBConfig}>
-            <RouterProvider router={routerConfig}></RouterProvider>;
+            <RouterProvider router={routerConfig}></RouterProvider>
         </IndexedDB>
     );
 }
