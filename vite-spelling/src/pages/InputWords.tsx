@@ -1,7 +1,15 @@
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
+import Button from '@mui/material/Button';
+import React, { useRef } from 'react';
 
 export const InputWords: React.FC = () => {
+    const value = useRef<string>('');
+    const onSubmitWords = () => {
+        const words = value.current.trim().split('\n');
+        // TODO: Need to check whether the words you input has been spelled correctly with typo-js.
+        console.log('words', words);
+    };
     return (
         <div className="__InputWords text-6xl text-slate-600">
             <h3 className="dark:text-white mb-10">
@@ -9,9 +17,19 @@ export const InputWords: React.FC = () => {
             </h3>
             <TextareaAutosize
                 minRows={10}
+                onChange={e => {
+                    value.current = e.target.value;
+                }}
                 aria-label="empty textarea"
                 placeholder="Any Words"
             />
+            <div>
+                <Button
+                    variant="contained"
+                    onClick={onSubmitWords}>
+                    Submit.
+                </Button>
+            </div>
         </div>
     );
 };
