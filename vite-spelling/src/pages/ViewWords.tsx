@@ -3,6 +3,7 @@ import { useIndexedDB } from 'react-indexed-db-hook';
 import { WordsItem } from '../types';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { AudioPlays } from '../components/AudioPlays';
+import { AUDIO_SRC } from '../enum/api.enum';
 
 export const ViewWords: React.FC = () => {
     const { getAll } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
@@ -22,7 +23,7 @@ export const ViewWords: React.FC = () => {
                             className="flex">
                             <AudioPlays
                                 wordText={w.word}
-                                audioUrl={`https://dict.youdao.com/dictvoice?type=0&audio=${w.word}`}
+                                audioUrl={`${AUDIO_SRC}${w.word}`}
                             />
                         </li>
                     );
