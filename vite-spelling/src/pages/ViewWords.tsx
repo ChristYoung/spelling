@@ -15,12 +15,14 @@ export const ViewWords: React.FC = () => {
 
     return (
         <div className="__ViewWords">
-            <ul className="text-4xl">
+            <ul className="text-4xl font-mono">
                 {words.map(w => {
                     return (
                         <li
                             key={w.word}
-                            className="flex">
+                            className="flex py-5 px-9 mb-5
+                            shadow-custom bg-white cursor-pointer rounded-md text-gray-500
+                            dark:bg-little-dark dark:text-gray-50">
                             <AudioPlays
                                 wordText={w.word}
                                 audioUrl={`${AUDIO_SRC}${w.word}`}
