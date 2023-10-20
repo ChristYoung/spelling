@@ -27,4 +27,12 @@ export default defineConfig({
     optimizeDeps: {
         include: ['typo-js'],
     },
+    server: {
+        proxy: {
+            '/suggest': {
+                target: 'https://dict.youdao.com',
+                changeOrigin: true,
+            },
+        },
+    },
 });

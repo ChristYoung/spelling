@@ -5,10 +5,11 @@ import React, { useRef } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { WordsItem } from '../types';
-import { getDateString } from '../utils';
-import Typo from 'typo-js';
+import { getDateString, fetchRequest } from '../utils';
+import { WORDS_EXPLANATION } from '../enum';
+// import Typo from 'typo-js';
 
-const dictionary = new Typo('en_US');
+// const dictionary = new Typo('en_US');
 
 export const InputWords: React.FC = () => {
     const { add } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
@@ -18,13 +19,20 @@ export const InputWords: React.FC = () => {
         if (!words || words.length === 0) {
             return;
         }
+        // TODO: 验证单词拼写是否正确.
+        // for (const word of words) {
+        //     const spellCorrect = dictionary.check(word);
+        //     console.log('spellCorrect', spellCorrect);
+        //     if (!spellCorrect) {
+        //         alert(`${word}拼写有误!`);
+        //         return;
+        //     }
+        // }
         for (const word of words) {
-            const spellCorrect = dictionary.check(word);
-            console.log('spellCorrect', spellCorrect);
-            if (!spellCorrect) {
-                alert(`${word}拼写有误!`);
-                return;
-            }
+            const explanation = await fetchRequest({
+                url: `${WORDS_EXPLANATION}${word}`,
+            });
+            console.log('explanation', explanation);
         }
         const wordsToAdd: WordsItem[] = words.map(word => ({
             word,

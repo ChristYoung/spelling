@@ -8,7 +8,7 @@ export const DBConfig = {
             store: DB_WORDS_TABLE_NAME.WORDS,
             storeConfig: { keyPath: 'id', autoIncrement: true },
             storeSchema: [
-                { name: 'word', keypath: 'word', options: { unique: false } },
+                { name: 'word', keypath: 'word', options: { unique: true } },
                 {
                     name: 'created_timestamp',
                     keypath: 'created_timestamp',
@@ -17,6 +17,16 @@ export const DBConfig = {
                 {
                     name: 'familiar',
                     keypath: 'familiar',
+                    options: { unique: false },
+                },
+                {
+                    name: 'explanation',
+                    keypath: 'explanation',
+                    options: { unique: false },
+                },
+                {
+                    name: 'example',
+                    keypath: 'example',
                     options: { unique: false },
                 },
             ],

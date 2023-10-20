@@ -3,4 +3,5 @@ export interface WordsItem {
     familiar: boolean;
     created_timestamp?: number;
     explanation?: string; // 释义
+    example?: string; // 例句
 }

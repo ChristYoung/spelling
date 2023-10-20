@@ -4,13 +4,15 @@ import { AiFillNotification } from 'react-icons/ai';
 export interface AudioPlaysProps extends React.HTMLAttributes<HTMLDivElement> {
     audioUrl: string;
     wordText: string;
+    explanation?: string; // 释义
+    example?: string; // 例句
     size?: 'sm' | 'base' | 'lg';
 }
 
 export const AudioPlays: React.FC<AudioPlaysProps> = (
     props: AudioPlaysProps,
 ) => {
-    const { audioUrl, wordText, size } = props;
+    const { audioUrl, wordText, size, explanation } = props;
     const sizeClass = size ? `text-${props.size}` : 'base';
     const audioRef = useRef(null);
     return (
@@ -18,7 +20,7 @@ export const AudioPlays: React.FC<AudioPlaysProps> = (
             className={`flex w-full ${sizeClass} items-center justify-between`}>
             <div className="flex-1">
                 <p className="mb-5 text-left">{wordText}</p>
-                <p className="text-2xl text-left">国王, 开销大额</p>
+                <p className="text-2xl text-left">{explanation}</p>
             </div>
             <div>
                 <AiFillNotification
