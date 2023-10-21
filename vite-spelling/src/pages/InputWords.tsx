@@ -4,7 +4,11 @@ import Button from '@mui/material/Button';
 import React, { useRef } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { WordsItem } from '../types';
+import {
+    OutputYouDaoBaseResponse,
+    OutputYouDaoExplanationData,
+    WordsItem,
+} from '../types';
 import { getDateString, fetchRequest } from '../utils';
 import { WORDS_EXPLANATION } from '../enum';
 // import Typo from 'typo-js';
@@ -19,26 +23,29 @@ export const InputWords: React.FC = () => {
         if (!words || words.length === 0) {
             return;
         }
+
         // TODO: 验证单词拼写是否正确.
-        // for (const word of words) {
-        //     const spellCorrect = dictionary.check(word);
-        //     console.log('spellCorrect', spellCorrect);
-        //     if (!spellCorrect) {
-        //         alert(`${word}拼写有误!`);
-        //         return;
-        //     }
-        // }
-        for (const word of words) {
-            const explanation = await fetchRequest({
-                url: `${WORDS_EXPLANATION}${word}`,
+
+        const wordsToAdd: WordsItem[] = words.map(word => {
+            return {
+                word,
+                created_timestamp: 0,
+                familiar: false,
+            };
+        });
+
+        for (const w of wordsToAdd) {
+            // 调用有道api获取单词的释义, 存入到数据库中.
+            const explanationsResponse = await fetchRequest<
+                OutputYouDaoBaseResponse<OutputYouDaoExplanationData>
+            >({
+                url: `${WORDS_EXPLANATION}${w.word}`,
             });
-            console.log('explanation', explanation);
+            const explanations = explanationsResponse?.data?.entries.map(
+                e => e.explain,
+            );
+            w.explanations = explanations;
         }
-        const wordsToAdd: WordsItem[] = words.map(word => ({
-            word,
-            created_timestamp: 0,
-            familiar: false,
-        }));
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();
             const _event = await add(word);

@@ -6,7 +6,7 @@ export const fetchRequest = async <T>(
     const { url, method, data } = config;
     try {
         const fetchData = await axios.request<T>({ url, method, data });
-        return fetchData.data;
+        return fetchData.data as T;
     } catch (error) {
         return error;
     }
