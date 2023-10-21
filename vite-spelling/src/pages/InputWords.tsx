@@ -1,9 +1,9 @@
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
-import Button from '@mui/material/Button';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
+import LoadingButton from '@mui/lab/LoadingButton';
 import {
     OutputYouDaoBaseResponse,
     OutputYouDaoExplanationData,
@@ -18,7 +18,9 @@ import { WORDS_EXPLANATION } from '../enum';
 export const InputWords: React.FC = () => {
     const { add } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const value = useRef<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
     const onSubmitWords = async () => {
+        setLoading(true);
         const words = value.current.trim().split('\n');
         if (!words || words.length === 0) {
             return;
@@ -48,9 +50,9 @@ export const InputWords: React.FC = () => {
         }
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();
-            const _event = await add(word);
-            console.log('ID Generated: ', _event);
+            await add(word);
         }
+        setLoading(false);
     };
     return (
         <div className="__InputWords text-6xl text-slate-600">
@@ -66,11 +68,13 @@ export const InputWords: React.FC = () => {
                 placeholder="Any Words"
             />
             <div>
-                <Button
+                <LoadingButton
+                    loading={loading}
+                    size="large"
                     variant="contained"
                     onClick={onSubmitWords}>
-                    Submit.
-                </Button>
+                    Save
+                </LoadingButton>
             </div>
         </div>
     );
