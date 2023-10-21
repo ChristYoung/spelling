@@ -25,6 +25,11 @@ export const ViewWords: React.FC = () => {
                             dark:bg-little-dark dark:text-gray-50">
                             <AudioPlays
                                 wordText={w.word}
+                                explanation={
+                                    w.explanations?.length > 0
+                                        ? w.explanations[0]
+                                        : '--'
+                                }
                                 audioUrl={`${AUDIO_SRC}${w.word}`}
                             />
                         </li>

@@ -21,3 +21,9 @@ export interface OutputYouDaoExplanationData {
         entry?: string;
     }>;
 }
+
+export interface SoundResource {
+    key: string;
+    name: string;
+    filename: string;
+}

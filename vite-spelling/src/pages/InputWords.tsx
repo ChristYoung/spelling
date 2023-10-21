@@ -22,7 +22,8 @@ export const InputWords: React.FC = () => {
     const onSubmitWords = async () => {
         setLoading(true);
         const words = value.current.trim().split('\n');
-        if (!words || words.length === 0) {
+        if (!value.current) {
+            setLoading(false);
             return;
         }
 
