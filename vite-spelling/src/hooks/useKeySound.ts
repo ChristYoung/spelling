@@ -4,7 +4,7 @@ export const SOUND_RESOURCES_PREFIX = '/sounds/';
 export const WRONG_SOUND = 'beep.wav';
 export const CORRECT_SOUND = 'correct.wav';
 export const TYPING_SOUND = 'Cherry MX Blacks.mp3';
-export const VOLUME = 2;
+export const VOLUME = 200;
 export type PlayFunction = ReturnType<typeof useSound>[0];
 
 export function useKeySound(): [PlayFunction, PlayFunction, PlayFunction] {
