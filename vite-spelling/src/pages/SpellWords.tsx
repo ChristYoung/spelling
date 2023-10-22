@@ -10,7 +10,7 @@ export const SpellWords: React.FC = () => {
                         <div className="container flex flex-grow flex-col items-center justify-center">
                             <div className="relative flex w-full justify-center">
                                 <SpellCard
-                                    word="remote"
+                                    word="fuck"
                                     familiar={false}
                                 />
                             </div>
