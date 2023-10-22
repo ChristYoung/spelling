@@ -22,8 +22,9 @@ export interface OutputYouDaoExplanationData {
     }>;
 }
 
-export interface SoundResource {
-    key: string;
-    name: string;
-    filename: string;
+export interface WordUpdateAction {
+    type: 'add' | 'remove';
+    value?: string;
+    len?: number;
+    event?: KeyboardEvent;
 }

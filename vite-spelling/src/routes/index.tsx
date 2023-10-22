@@ -3,6 +3,7 @@ import { RootLayout } from '../pages/RootLayout';
 import { Home } from '../pages/Home';
 import { InputWords } from '../pages/InputWords';
 import { ViewWords } from '../pages/ViewWords';
+import { SpellWords } from '../pages/SpellWords';
 
 const routerConfig = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const routerConfig = createBrowserRouter([
             {
                 path: 'view',
                 element: <ViewWords />,
+            },
+            {
+                path: 'spelling',
+                element: <SpellWords />,
             },
         ],
     },

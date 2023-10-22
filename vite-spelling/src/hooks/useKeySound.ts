@@ -1,6 +1,6 @@
 import useSound from 'use-sound';
 
-export const SOUND_RESOURCES_PREFIX = '/vite-spelling/sounds/';
+export const SOUND_RESOURCES_PREFIX = '/sounds/';
 export const WRONG_SOUND = 'beep.wav';
 export const CORRECT_SOUND = 'correct.wav';
 export const TYPING_SOUND = 'Cherry MX Blacks.mp3';
