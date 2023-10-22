@@ -16,7 +16,7 @@
     "@mui/material": "^5.14.13",
     "@reduxjs/toolkit": "1.9.5",
     "ahooks": "^3.7.8",
-    "immer": "9.0.21",
+    "immer": "^10.0.3",
     "nanoid": "4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -25,6 +25,7 @@
     "react-redux": "8.1.2",
     "react-router-dom": "6.14.2",
     "react-scripts": "5.0.1",
+    "redux-saga": "^1.2.3",
     "typo-js": "^1.2.3",
     "use-sound": "^4.0.1"
   },

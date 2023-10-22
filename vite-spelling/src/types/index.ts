@@ -4,6 +4,7 @@ export interface WordsItem {
     created_timestamp?: number;
     explanations?: string[]; // 释义
     example?: string; // 例句
+    id?: number;
 }
 
 export interface OutputYouDaoBaseResponse<T> {
