@@ -56,11 +56,7 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                                 );
                             })}
                         </div>
-                        <button
-                            type="button"
-                            className="focus:outline-none dark:fill-gray-400 dark:opacity-80 cursor-pointer text-gray-600 absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform ">
-                            <HornIcon />
-                        </button>
+                        <HornIcon />
                     </div>
                 </div>
                 {/* TODO: 后续看有没有API可以获取到音标. */}
