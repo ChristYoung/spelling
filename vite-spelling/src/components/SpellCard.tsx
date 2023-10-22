@@ -56,16 +56,12 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                                 );
                             })}
                         </div>
-                        <HornIcon />
+                        <HornIcon
+                            word={word}
+                            className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform"
+                        />
                     </div>
                 </div>
-                {/* TODO: 后续看有没有API可以获取到音标. */}
-                {/* <div className="space-x-5 text-center text-sm font-normal text-gray-600 transition-colors duration-300 dark:text-gray-400 false">
-                                            <span>
-                                                AmE: [ɪk'splosɪv; ɪk'splozɪv]
-                                            </span>
-                                        </div> */}
-                {/* 中文释义 */}
                 <div className="flex items-center justify-center  pb-4 pt-5">
                     <span
                         className="max-w-4xl text-center font-sans transition-colors duration-300 dark:text-white dark:text-opacity-80 false false"

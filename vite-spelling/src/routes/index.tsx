@@ -20,7 +20,7 @@ const routerConfig = createBrowserRouter([
                 element: <ViewWords />,
             },
             {
-                path: 'spelling',
+                path: 'spellWords',
                 element: <SpellWords />,
             },
         ],

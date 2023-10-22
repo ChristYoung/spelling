@@ -14,7 +14,7 @@ const MenuList: MenuCardProps[] = [
     },
     {
         title: 'SPELLING',
-        actionUrl: 'spelling',
+        actionUrl: 'spellWords',
         icon: <BsSpellcheck></BsSpellcheck>,
         desc: 'You can practice spelling words by typing.',
     },

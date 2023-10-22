@@ -1,13 +1,26 @@
 import { useRef } from 'react';
+import { AUDIO_SRC } from '../../enum';
 
 export interface HornIconProps extends React.HTMLAttributes<HTMLDivElement> {
-    audioUrl?: string;
+    word: string;
+    autoPlay?: boolean;
     size?: 'sm' | 'base' | 'lg';
 }
 
+const SIZE_MAP: Record<
+    'sm' | 'base' | 'lg',
+    { width: number; height: number }
+> = {
+    sm: { width: 10, height: 10 },
+    base: { width: 30, height: 30 },
+    lg: { width: 50, height: 50 },
+};
+
 export const HornIcon: React.FC<HornIconProps> = (props: HornIconProps) => {
-    const { className, style, audioUrl, size = 'lg' } = props;
+    const { className, style, size = 'base', word } = props;
+    const audioUrl = `${AUDIO_SRC}${word}`;
     const audioRef = useRef(null);
+
     return (
         <button
             type="button"
@@ -18,9 +31,10 @@ export const HornIcon: React.FC<HornIconProps> = (props: HornIconProps) => {
                     audioRef.current.pause();
                 }
             }}
-            className={`__HornIcon text-${size} focus:outline-none dark:fill-gray-400 dark:opacity-80 cursor-pointer text-gray-600 absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform `}>
+            className={`__HornIcon text-${size} focus:outline-none dark:fill-gray-400 dark:opacity-80 cursor-pointer text-gray-600 ${className}`}>
             <svg
                 className={className}
+                {...SIZE_MAP[size]}
                 style={{ ...style }}
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
