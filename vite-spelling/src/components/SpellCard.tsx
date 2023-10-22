@@ -1,8 +1,11 @@
-import { useCallback, useState } from 'react';
-import { WordUpdateAction, WordsItem } from '../types';
+import { useState } from 'react';
 import { useKeySound } from '../hooks/useKeySound';
+import { WordsItem } from '../types';
 import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
+import { changeCurrentWordByIndex } from '../store/wordsReducer/wordsSlice';
+import { getCurrentWordIndexSelector } from '../store/wordsReducer/wordsSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 export const SpellingStateClassNames = {
     normal: 'text-gray-400',
@@ -11,9 +14,11 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
-    const { word, explanations, familiar } = props;
+    const { word, explanations } = props;
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
+    const currentWordIndex = useSelector(getCurrentWordIndexSelector);
+    const dispatch = useDispatch();
     const updateInput = (letter: string) => {
         const displayWordsLen = displayWords.length;
         const isCorrect = letter === word[displayWordsLen];
@@ -23,6 +28,7 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
             playTypingSound();
             if (isLastLetter) {
                 console.log('the word you input was right!');
+                dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
                 playCorrectSound();
             }
             setDisplayWords(prev => [...prev, letter]);
@@ -69,7 +75,9 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                         style={{
                             fontSize: '18px',
                         }}>
-                        爆炸的； 极易引起争论的；炸药
+                        {explanations?.length > 0
+                            ? explanations.join('\n')
+                            : '--'}
                     </span>
                 </div>
             </div>

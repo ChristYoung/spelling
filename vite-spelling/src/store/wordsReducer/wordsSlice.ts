@@ -6,18 +6,20 @@ export type WordsListState = {
     words: WordsItem[];
     currentWordIndex: number;
     currentWord: WordsItem;
-    currentWordId?: number;
 };
 
 export const INIT_STATE: WordsListState = {
     words: [],
     currentWordIndex: -1,
     currentWord: null,
-    currentWordId: undefined,
 };
 
 export const getWordsListSelector = (state: GlobalStoreType) =>
     state.wordsList.words;
+export const getCurrentWordIndexSelector = (state: GlobalStoreType) =>
+    state.wordsList.currentWordIndex;
+export const getCurrentWordSelector = (state: GlobalStoreType) =>
+    state.wordsList.currentWord;
 
 export const wordsSlice = createSlice({
     name: 'wordsSlice',
@@ -36,8 +38,22 @@ export const wordsSlice = createSlice({
                 currentWordId: words[0].id,
             };
         },
+        changeCurrentWordByIndex: (
+            state: WordsListState,
+            action: PayloadAction<number>,
+        ) => {
+            const newCurrentWordIndex = action.payload;
+            const newCurrentWord = state.words[newCurrentWordIndex]
+                ? state.words[newCurrentWordIndex]
+                : state.currentWord;
+            return {
+                ...state,
+                currentWordIndex: newCurrentWordIndex,
+                currentWord: newCurrentWord,
+            };
+        },
     },
 });
 
-export const { restWordsList } = wordsSlice.actions;
+export const { restWordsList, changeCurrentWordByIndex } = wordsSlice.actions;
 export default wordsSlice.reducer;
