@@ -58,6 +58,7 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                         </div>
                         <HornIcon
                             word={word}
+                            autoPlay={true}
                             className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform"
                         />
                     </div>

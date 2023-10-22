@@ -1,10 +1,5 @@
-import {
-    forwardRef,
-    useEffect,
-    useImperativeHandle,
-    useRef,
-    useState,
-} from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import useSound from 'use-sound';
 import { AUDIO_SRC } from '../../enum';
 
 export interface HornIconProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,45 +19,39 @@ const SIZE_MAP: Record<
 
 const AudioPlayer = (props, ref) => {
     const { className, style, size = 'base', word, autoPlay } = props;
-    const [isPlaying, setIsPlaying] = useState(false);
     const audioUrl = `${AUDIO_SRC}${word}`;
+    const [play, { stop }] = useSound(audioUrl, {
+        volume: 1,
+        html5: true,
+        format: ['mp3'],
+    });
     const audioRef = useRef(null);
 
     useEffect(() => {
         const audio = new Audio(audioUrl);
         audioRef.current = audio;
         if (autoPlay) {
-            setIsPlaying(true);
+            play();
         }
         return () => {
             audio.pause();
             audio.currentTime = 0;
         };
-    }, [audioUrl, autoPlay]);
-
-    useEffect(() => {
-        const audio = audioRef.current as HTMLAudioElement;
-        if (isPlaying) {
-            audio.play();
-        } else {
-            audio.pause();
-            audio.currentTime = 0;
-        }
-    }, [isPlaying]);
+    }, [audioUrl, autoPlay, play]);
 
     useImperativeHandle(ref, () => ({
         play() {
-            setIsPlaying(true);
+            play();
         },
         pause() {
-            setIsPlaying(false);
+            stop();
         },
     }));
 
     return (
         <button
             type="button"
-            onClick={() => setIsPlaying(true)}
+            onClick={() => play()}
             className={`__HornIcon text-${size} focus:outline-none dark:fill-gray-400 dark:opacity-80 cursor-pointer text-gray-600 ${className}`}>
             <svg
                 className={className}
