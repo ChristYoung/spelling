@@ -1,11 +1,13 @@
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
+import {
+    changeCurrentWordByIndex,
+    getCurrentWordIndexSelector,
+} from '../store/wordsReducer/wordsSlice';
 import { WordsItem } from '../types';
 import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
-import { changeCurrentWordByIndex } from '../store/wordsReducer/wordsSlice';
-import { getCurrentWordIndexSelector } from '../store/wordsReducer/wordsSlice';
-import { useSelector, useDispatch } from 'react-redux';
 
 export const SpellingStateClassNames = {
     normal: 'text-gray-400',
@@ -21,17 +23,18 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
     const dispatch = useDispatch();
     const updateInput = (letter: string) => {
         const displayWordsLen = displayWords.length;
-        const isCorrect = letter === word[displayWordsLen];
+        const isCorrect = letter === word[displayWordsLen].toLowerCase();
         const isLastLetter = displayWordsLen === word.length - 1;
         if (displayWords.length === word.length) return;
         if (isCorrect) {
             playTypingSound();
+            setDisplayWords(prev => [...prev, letter]);
             if (isLastLetter) {
                 console.log('the word you input was right!');
                 dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
                 playCorrectSound();
+                setDisplayWords([]);
             }
-            setDisplayWords(prev => [...prev, letter]);
         } else {
             playWrongSound();
             setDisplayWords([]);
@@ -46,21 +49,22 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                     className="flex flex-col items-center justify-center pb-1 pt-4">
                     <div className="tooltip-info relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
                         <div className="flex items-center false justify-center ">
-                            {word.split('').map((w, _index) => {
-                                return (
-                                    <span
-                                        key={`${_index}_${w}_word`}
-                                        className={`m-0 p-0 font-mono text-[48px] px-1 font-normal  dark:text-gray-50 duration-0 dark:text-opacity-80 ${
-                                            w === displayWords[_index]
-                                                ? SpellingStateClassNames.correct
-                                                : SpellingStateClassNames.normal
-                                        }`}>
-                                        {displayWords[_index]
-                                            ? displayWords[_index]
-                                            : '_'}
-                                    </span>
-                                );
-                            })}
+                            {word &&
+                                word.split('').map((w, _index) => {
+                                    return (
+                                        <span
+                                            key={`${_index}_${w}_word`}
+                                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal  dark:text-gray-50 duration-0 dark:text-opacity-80 ${
+                                                w === displayWords[_index]
+                                                    ? SpellingStateClassNames.correct
+                                                    : SpellingStateClassNames.normal
+                                            }`}>
+                                            {displayWords[_index]
+                                                ? displayWords[_index]
+                                                : '_'}
+                                        </span>
+                                    );
+                                })}
                         </div>
                         <HornIcon
                             word={word}
