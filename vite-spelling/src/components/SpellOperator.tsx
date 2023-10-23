@@ -24,9 +24,13 @@ export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
             }}
             className="__SpellOperator text-3xl flex w-3/5 rounded-xl bg-white p-4 py-10 opacity-50 transition-colors duration-300 dark:bg-gray-800">
             <div
-                className="flex flex-1 flex-col items-center justify-center cursor-pointer"
+                className={`flex flex-1 flex-col items-center justify-center ${
+                    currentWordIndex <= 0
+                        ? 'cursor-not-allowed'
+                        : 'cursor-pointer'
+                }`}
                 onClick={() => {
-                    if (currentWordIndex + 1 > 0) {
+                    if (currentWordIndex > 0) {
                         dispatch(
                             changeCurrentWordByIndex(currentWordIndex - 1),
                         );
@@ -52,7 +56,11 @@ export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
                 </span>
             </div>
             <div
-                className="flex flex-1 flex-col items-center justify-center cursor-pointer"
+                className={`flex flex-1 flex-col items-center justify-center cursor-pointer ${
+                    currentWordIndex + 1 < wordsList.length
+                        ? 'cursor-pointer'
+                        : 'cursor-not-allowed'
+                }`}
                 onClick={() => {
                     if (currentWordIndex + 1 < wordsList.length) {
                         dispatch(
