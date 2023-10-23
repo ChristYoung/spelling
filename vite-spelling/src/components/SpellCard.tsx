@@ -55,7 +55,8 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                                         <span
                                             key={`${_index}_${w}_word`}
                                             className={`m-0 p-0 font-mono text-[48px] px-1 font-normal  dark:text-gray-50 duration-0 dark:text-opacity-80 ${
-                                                w === displayWords[_index]
+                                                w.toLocaleLowerCase() ===
+                                                displayWords[_index]
                                                     ? SpellingStateClassNames.correct
                                                     : SpellingStateClassNames.normal
                                             }`}>
