@@ -48,7 +48,7 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                     lang="en"
                     className="flex flex-col items-center justify-center pb-1 pt-4">
                     <div className="tooltip-info relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
-                        <div className="flex items-center false justify-center ">
+                        <div className="flex items-center false justify-center select-none">
                             {word &&
                                 word.split('').map((w, _index) => {
                                     return (

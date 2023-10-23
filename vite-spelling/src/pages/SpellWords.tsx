@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
 import { SpellCard } from '../components/SpellCard';
 import { getCurrentWordSelector } from '../store/wordsReducer/wordsSlice';
+import { SpellOperator } from '../components/SpellOperator';
 
 export const SpellWords: React.FC = () => {
     const currentWord = useSelector(getCurrentWordSelector);
@@ -20,6 +21,7 @@ export const SpellWords: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <SpellOperator />
         </div>
     );
 };
