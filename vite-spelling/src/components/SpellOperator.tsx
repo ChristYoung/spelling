@@ -12,14 +12,10 @@ import {
     getWordsListSelector,
     updateCurrentWordProperties,
 } from '../store/wordsReducer/wordsSlice';
-import { useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 
-export const SpellOperator: React.FC<{ familiar: boolean }> = (props: {
-    familiar: boolean;
-}) => {
-    const [isFamiliar, setFamiliar] = useState<boolean>(props.familiar);
+export const SpellOperator: React.FC = () => {
     const dispatch = useDispatch();
     const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
@@ -54,24 +50,22 @@ export const SpellOperator: React.FC<{ familiar: boolean }> = (props: {
                 <span
                     className="w-4/5 pb-2 text-center font-bold text-orange-300 transition-colors duration-300 dark:text-gray-400"
                     onClick={() => {
-                        update({ ...currentWord, familiar: !isFamiliar }).then(
-                            () => {
-                                setFamiliar(!isFamiliar);
-                                dispatch(
-                                    updateCurrentWordProperties({
-                                        ...currentWord,
-                                        familiar: !isFamiliar,
-                                    }),
-                                );
-                            },
-                        );
+                        const familiar = !currentWord?.familiar;
+                        update({ ...currentWord, familiar }).then(() => {
+                            dispatch(
+                                updateCurrentWordProperties({
+                                    ...currentWord,
+                                    familiar,
+                                }),
+                            );
+                        });
                     }}
                     title={
-                        isFamiliar
+                        currentWord?.familiar
                             ? 'Removal of the "mastered" marker.'
                             : 'Marked as mastered.'
                     }>
-                    {isFamiliar ? (
+                    {currentWord?.familiar ? (
                         <AiTwotoneHeart style={{ display: 'inline' }} />
                     ) : (
                         <AiOutlineHeart style={{ display: 'inline' }} />

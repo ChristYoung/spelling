@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
 import {
@@ -40,6 +40,9 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
             setDisplayWords([]);
         }
     };
+
+    useEffect(() => setDisplayWords([]), [word]);
+
     return (
         <>
             <InputHandler updateInput={updateInput}></InputHandler>

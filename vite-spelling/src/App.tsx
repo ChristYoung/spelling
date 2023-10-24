@@ -14,7 +14,6 @@ initDB(DBConfig);
 function App() {
     const { getAll } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const dispatch = useDispatch();
-
     useEffect(() => {
         getAll().then(wordsFromDB => dispatch(restWordsList(wordsFromDB)));
     }, [dispatch, getAll]);

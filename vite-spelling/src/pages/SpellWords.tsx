@@ -21,7 +21,7 @@ export const SpellWords: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <SpellOperator familiar={currentWord.familiar} />
+            <SpellOperator />
         </div>
     );
 };
