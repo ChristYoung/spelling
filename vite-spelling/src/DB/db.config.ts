@@ -8,15 +8,25 @@ export const DBConfig = {
             store: DB_WORDS_TABLE_NAME.WORDS,
             storeConfig: { keyPath: 'id', autoIncrement: true },
             storeSchema: [
-                { name: 'word', keypath: 'word', options: { unique: false } },
+                { name: 'word', keypath: 'word', options: { unique: true } },
                 {
-                    name: 'created_timestamp',
+                    name: 'created_timestamp', // 单词创建的时间
                     keypath: 'created_timestamp',
                     options: { unique: false },
                 },
                 {
-                    name: 'familiar',
+                    name: 'familiar', // 单词是否掌握
                     keypath: 'familiar',
+                    options: { unique: false },
+                },
+                {
+                    name: 'explanation', // 单词释义
+                    keypath: 'explanation',
+                    options: { unique: false },
+                },
+                {
+                    name: 'example', // 单词例句
+                    keypath: 'example',
                     options: { unique: false },
                 },
             ],

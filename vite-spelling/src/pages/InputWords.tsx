@@ -1,41 +1,59 @@
 import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
-import Button from '@mui/material/Button';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { WordsItem } from '../types';
-import { getDateString } from '../utils';
-import Typo from 'typo-js';
+import LoadingButton from '@mui/lab/LoadingButton';
+import {
+    OutputYouDaoBaseResponse,
+    OutputYouDaoExplanationData,
+    WordsItem,
+} from '../types';
+import { getDateString, fetchRequest } from '../utils';
+import { WORDS_EXPLANATION } from '../enum';
+// import Typo from 'typo-js';
 
-const dictionary = new Typo('en_US');
+// const dictionary = new Typo('en_US');
 
 export const InputWords: React.FC = () => {
     const { add } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const value = useRef<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
     const onSubmitWords = async () => {
+        setLoading(true);
         const words = value.current.trim().split('\n');
-        if (!words || words.length === 0) {
+        if (!value.current) {
+            setLoading(false);
             return;
         }
-        for (const word of words) {
-            const spellCorrect = dictionary.check(word);
-            console.log('spellCorrect', spellCorrect);
-            if (!spellCorrect) {
-                alert(`${word}拼写有误!`);
-                return;
-            }
+
+        // TODO: 验证单词拼写是否正确.
+
+        const wordsToAdd: WordsItem[] = words.map(word => {
+            return {
+                word,
+                created_timestamp: 0,
+                familiar: false,
+            };
+        });
+
+        for (const w of wordsToAdd) {
+            // 调用有道api获取单词的释义, 存入到数据库中.
+            const explanationsResponse = await fetchRequest<
+                OutputYouDaoBaseResponse<OutputYouDaoExplanationData>
+            >({
+                url: `${WORDS_EXPLANATION}${w.word}`,
+            });
+            const explanations = explanationsResponse?.data?.entries.map(
+                e => e.explain,
+            );
+            w.explanations = explanations;
         }
-        const wordsToAdd: WordsItem[] = words.map(word => ({
-            word,
-            created_timestamp: 0,
-            familiar: false,
-        }));
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();
-            const _event = await add(word);
-            console.log('ID Generated: ', _event);
+            await add(word);
         }
+        setLoading(false);
     };
     return (
         <div className="__InputWords text-6xl text-slate-600">
@@ -51,11 +69,13 @@ export const InputWords: React.FC = () => {
                 placeholder="Any Words"
             />
             <div>
-                <Button
+                <LoadingButton
+                    loading={loading}
+                    size="large"
                     variant="contained"
                     onClick={onSubmitWords}>
-                    Submit.
-                </Button>
+                    Save
+                </LoadingButton>
             </div>
         </div>
     );
