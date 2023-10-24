@@ -8,15 +8,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
+    getCurrentWordSelector,
     getWordsListSelector,
+    updateCurrentWordProperties,
 } from '../store/wordsReducer/wordsSlice';
 import { useState } from 'react';
+import { useIndexedDB } from 'react-indexed-db-hook';
+import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 
-export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
+export const SpellOperator: React.FC<{ familiar: boolean }> = (props: {
+    familiar: boolean;
+}) => {
     const [isFamiliar, setFamiliar] = useState<boolean>(props.familiar);
     const dispatch = useDispatch();
+    const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
+    const currentWord = useSelector(getCurrentWordSelector);
     const wordsList = useSelector(getWordsListSelector);
+
     return (
         <div
             style={{
@@ -45,7 +54,17 @@ export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
                 <span
                     className="w-4/5 pb-2 text-center font-bold text-orange-300 transition-colors duration-300 dark:text-gray-400"
                     onClick={() => {
-                        setFamiliar(!isFamiliar);
+                        update({ ...currentWord, familiar: !isFamiliar }).then(
+                            () => {
+                                setFamiliar(!isFamiliar);
+                                dispatch(
+                                    updateCurrentWordProperties({
+                                        ...currentWord,
+                                        familiar: !isFamiliar,
+                                    }),
+                                );
+                            },
+                        );
                     }}
                     title={
                         isFamiliar

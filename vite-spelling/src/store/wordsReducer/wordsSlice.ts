@@ -52,8 +52,18 @@ export const wordsSlice = createSlice({
                 currentWord: newCurrentWord,
             };
         },
+        updateCurrentWordProperties: (
+            state: WordsListState,
+            action: PayloadAction<WordsItem>,
+        ) => {
+            return { ...state, currentWord: action.payload };
+        },
     },
 });
 
-export const { restWordsList, changeCurrentWordByIndex } = wordsSlice.actions;
+export const {
+    restWordsList,
+    changeCurrentWordByIndex,
+    updateCurrentWordProperties,
+} = wordsSlice.actions;
 export default wordsSlice.reducer;
