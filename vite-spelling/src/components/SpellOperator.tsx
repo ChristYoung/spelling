@@ -10,9 +10,10 @@ import {
     getCurrentWordIndexSelector,
     getWordsListSelector,
 } from '../store/wordsReducer/wordsSlice';
+import { useState } from 'react';
 
 export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
-    const { familiar } = props;
+    const [isFamiliar, setFamiliar] = useState<boolean>(props.familiar);
     const dispatch = useDispatch();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const wordsList = useSelector(getWordsListSelector);
@@ -22,7 +23,7 @@ export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
                 boxShadow:
                     '0 100px 80px #322e8112, 0 41.7776px 33.4221px #322e810d, 0 22.3363px 17.869px #322e810b, 0 12.5216px 10.0172px #322e8109, 0 6.6501px 5.32008px #322e8107, 0 2.76726px 2.21381px #322e8105',
             }}
-            className="__SpellOperator text-3xl flex w-3/5 rounded-xl bg-white p-4 py-10 opacity-50 transition-colors duration-300 dark:bg-gray-800">
+            className="__SpellOperator text-4xl flex w-3/5 rounded-xl bg-white p-4 py-10 opacity-50 transition-colors duration-300 dark:bg-gray-800">
             <div
                 className={`flex flex-1 flex-col items-center justify-center ${
                     currentWordIndex <= 0
@@ -42,13 +43,16 @@ export const SpellOperator: React.FC = (props: { familiar: boolean }) => {
             </div>
             <div className="flex flex-1 flex-col items-center justify-center cursor-pointer">
                 <span
-                    className="w-4/5 pb-2 text-center font-bold text-gray-600 transition-colors duration-300 dark:text-gray-400"
+                    className="w-4/5 pb-2 text-center font-bold text-orange-300 transition-colors duration-300 dark:text-gray-400"
+                    onClick={() => {
+                        setFamiliar(!isFamiliar);
+                    }}
                     title={
-                        familiar
+                        isFamiliar
                             ? 'Removal of the "mastered" marker.'
                             : 'Marked as mastered.'
                     }>
-                    {familiar ? (
+                    {isFamiliar ? (
                         <AiTwotoneHeart style={{ display: 'inline' }} />
                     ) : (
                         <AiOutlineHeart style={{ display: 'inline' }} />
