@@ -3,15 +3,15 @@ import { GlobalStoreType } from '..';
 
 export type SettingState = {
     autoPlayWordPronunciation?: boolean; // 自动播放单词发音
-    keyBoardFontFamily?: string;
-    keyBoardSound?: boolean;
+    muteKeyBoardSound?: boolean; // 敲击键盘的时候不发出声音
+    onlyShowExplanationWhenSpelling?: boolean; // 拼写的时候只展示中文释义
 };
 
 export const getSettingSelector = (state: GlobalStoreType) => state.setting;
 
 export const INIT_STATE: SettingState = {
     autoPlayWordPronunciation: true,
-    keyBoardSound: true,
+    muteKeyBoardSound: false,
 };
 export const settingSlice = createSlice({
     name: 'settingSlice',

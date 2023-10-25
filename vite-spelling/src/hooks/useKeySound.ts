@@ -1,4 +1,10 @@
+import { useSelector } from 'react-redux';
 import useSound from 'use-sound';
+import {
+    SettingState,
+    getSettingSelector,
+} from '../store/settingReducer/settingSlice';
+import noop from '../utils/noop.util';
 
 export const SOUND_RESOURCES_PREFIX = '/sounds/';
 export const WRONG_SOUND = 'beep.wav';
@@ -8,6 +14,7 @@ export const VOLUME = 200;
 export type PlayFunction = ReturnType<typeof useSound>[0];
 
 export function useKeySound(): [PlayFunction, PlayFunction, PlayFunction] {
+    const settingConfig: SettingState = useSelector(getSettingSelector);
     const [playTypingSound] = useSound(
         `${SOUND_RESOURCES_PREFIX}${TYPING_SOUND}`,
         {
@@ -29,5 +36,7 @@ export function useKeySound(): [PlayFunction, PlayFunction, PlayFunction] {
             interrupt: true,
         },
     );
-    return [playTypingSound, playWrongSound, playCorrectSound];
+    return settingConfig.muteKeyBoardSound
+        ? [noop, noop, noop]
+        : [playTypingSound, playWrongSound, playCorrectSound];
 }
