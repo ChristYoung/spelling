@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
 import {
@@ -8,6 +8,7 @@ import {
 import { WordsItem } from '../types';
 import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
+import { getSettingSelector } from '../store/settingReducer/settingSlice';
 
 export const SpellingStateClassNames = {
     normal: 'text-gray-400',
@@ -16,32 +17,45 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
-    const { word, explanations } = props;
+    const { word, explanations, char } = props;
+    const settingConfig = useSelector(getSettingSelector);
+    const hornIconRef = useRef(null);
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const dispatch = useDispatch();
     const updateInput = (letter: string) => {
         const displayWordsLen = displayWords.length;
-        const isCorrect = letter === word[displayWordsLen].toLowerCase();
-        const isLastLetter = displayWordsLen === word.length - 1;
-        if (displayWords.length === word.length) return;
-        if (isCorrect) {
-            playTypingSound();
-            setDisplayWords(prev => [...prev, letter]);
-            if (isLastLetter) {
-                console.log('the word you input was right!');
-                dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
-                playCorrectSound();
-                setDisplayWords([]);
+        if (letter === 'Backspace') {
+            if (!settingConfig.onlyShowExplanationWhenSpelling) {
+                hornIconRef.current.play();
             }
         } else {
-            playWrongSound();
-            setDisplayWords([]);
+            const isCorrect = letter === word[displayWordsLen].toLowerCase();
+            const isLastLetter = displayWordsLen === word.length - 1;
+            if (displayWords.length === word.length) return;
+            if (isCorrect) {
+                playTypingSound();
+                setDisplayWords(prev => [...prev, letter]);
+                if (isLastLetter) {
+                    console.log('the word you input was right!');
+                    dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
+                    playCorrectSound();
+                    setDisplayWords([]);
+                }
+            } else {
+                playWrongSound();
+                setDisplayWords([]);
+            }
         }
     };
 
     useEffect(() => setDisplayWords([]), [word]);
+    useEffect(() => {
+        if (char) {
+            updateInput(char as string);
+        }
+    }, [char]);
 
     return (
         <>
@@ -70,11 +84,16 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                                     );
                                 })}
                         </div>
-                        <HornIcon
-                            word={word}
-                            autoPlay={true}
-                            className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform"
-                        />
+                        {!settingConfig.onlyShowExplanationWhenSpelling ? (
+                            <HornIcon
+                                word={word}
+                                ref={hornIconRef}
+                                autoPlay={true}
+                                className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform"
+                            />
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 <div className="flex items-center justify-center  pb-4 pt-5">
