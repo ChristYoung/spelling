@@ -16,7 +16,7 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
-    const { word, explanations } = props;
+    const { word, explanations, char } = props;
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
@@ -42,6 +42,11 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
     };
 
     useEffect(() => setDisplayWords([]), [word]);
+    useEffect(() => {
+        if (char) {
+            updateInput(char as string);
+        }
+    }, [char]);
 
     return (
         <>
