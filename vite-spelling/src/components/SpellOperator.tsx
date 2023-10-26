@@ -73,7 +73,7 @@ export const SpellOperator: React.FC = () => {
                 </span>
             </div>
             <div
-                className={`flex flex-1 flex-col items-center justify-center cursor-pointer ${
+                className={`flex flex-1 flex-col items-center justify-center ${
                     currentWordIndex + 1 < wordsList.length
                         ? 'cursor-pointer'
                         : 'cursor-not-allowed'
