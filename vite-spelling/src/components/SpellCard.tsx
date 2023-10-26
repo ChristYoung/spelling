@@ -24,19 +24,20 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const dispatch = useDispatch();
-    const updateInput = (letter: string) => {
+    const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
         const displayWordsLen = displayWords.length;
-        if (letter === 'Backspace') {
+        const { code, key } = keyboardEventObj;
+        if (code === 'Space') {
             if (!settingConfig.onlyShowExplanationWhenSpelling) {
                 hornIconRef.current.play();
             }
         } else {
-            const isCorrect = letter === word[displayWordsLen].toLowerCase();
+            const isCorrect = key === word[displayWordsLen].toLowerCase();
             const isLastLetter = displayWordsLen === word.length - 1;
             if (displayWords.length === word.length) return;
             if (isCorrect) {
                 playTypingSound();
-                setDisplayWords(prev => [...prev, letter]);
+                setDisplayWords(prev => [...prev, key]);
                 if (isLastLetter) {
                     console.log('the word you input was right!');
                     dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
@@ -53,7 +54,7 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
     useEffect(() => setDisplayWords([]), [word]);
     useEffect(() => {
         if (char) {
-            updateInput(char as string);
+            updateInput({ key: char as string, code: null });
         }
     }, [char]);
 
