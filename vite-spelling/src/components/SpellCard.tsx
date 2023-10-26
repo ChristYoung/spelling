@@ -10,14 +10,19 @@ import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
 import { getSettingSelector } from '../store/settingReducer/settingSlice';
 
+export interface SpellCardProps extends WordsItem {
+    char?: string;
+    onFinishSpell?: (wordItem: WordsItem, status: 'CORRECT' | 'WRONG') => void;
+}
+
 export const SpellingStateClassNames = {
     normal: 'text-gray-400',
     correct: 'text-correct dark:text-correct-dark',
     // wrong: 'text-red-400 dark:text-red-600',
 };
 
-export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
-    const { word, explanations, char } = props;
+export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
+    const { word, explanations, char, onFinishSpell } = props;
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
     const [displayWords, setDisplayWords] = useState<string[]>([]);
@@ -42,11 +47,13 @@ export const SpellCard: React.FC<WordsItem> = (props: WordsItem) => {
                     console.log('the word you input was right!');
                     dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
                     playCorrectSound();
+                    onFinishSpell(props, 'CORRECT');
                     setDisplayWords([]);
                 }
             } else {
                 playWrongSound();
                 setDisplayWords([]);
+                onFinishSpell(props, 'WRONG');
             }
         }
     };

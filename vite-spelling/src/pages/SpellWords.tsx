@@ -7,18 +7,34 @@ import {
 } from '../store/wordsReducer/wordsSlice';
 import { SpellOperator } from '../components/SpellOperator';
 import { KeyBoard } from '../components/KeyBoard';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { WordsItem } from '../types';
 
 export const SpellWords: React.FC = () => {
     const currentWord = useSelector(getCurrentWordSelector);
     const wordsList = useSelector(getWordsListSelector);
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
+    const wrongWords = useRef<WordsItem[]>([]);
     const progress =
         currentWordIndex + 1 >= wordsList.length
             ? 100
             : (currentWordIndex / wordsList.length) * 100;
     const keyDownHandler = (char: string) => setChar(char);
     const [char, setChar] = useState('');
+    const handleFinishSpell = (
+        wrongWord: WordsItem,
+        status: 'CORRECT' | 'WRONG',
+    ) => {
+        if (status === 'WRONG') {
+            wrongWords.current.push(wrongWord);
+        } else {
+            if (currentWordIndex === wordsList.length - 1) {
+                alert(
+                    `拼写结束, 您错误的单词有: ${wrongWords.current.join(',')}`,
+                );
+            }
+        }
+    };
     return (
         <div className="container mx-auto flex h-[500px] flex-1 flex-col items-center justify-center pb-5">
             <div className="container relative mx-auto flex h-full flex-col items-center">
@@ -34,6 +50,7 @@ export const SpellWords: React.FC = () => {
                             <div className="relative flex w-full justify-center">
                                 <SpellCard
                                     {...currentWord}
+                                    onFinishSpell={handleFinishSpell}
                                     char={char}
                                 />
                             </div>
