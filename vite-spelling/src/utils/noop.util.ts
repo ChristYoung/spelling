@@ -1,6 +1,6 @@
 const bannedKeys = [
     'Enter',
-    'Backspace',
+    // 'Backspace',
     'Delete',
     'Tab',
     'CapsLock',
@@ -38,7 +38,7 @@ export const isChineseSymbol = (val: string): boolean =>
         val,
     );
 
-export const isLegal = (key: string): boolean => {
-    if (bannedKeys.includes(key)) return false;
+export const isLegal = (char: string): boolean => {
+    if (bannedKeys.includes(char)) return false;
     return true;
 };
