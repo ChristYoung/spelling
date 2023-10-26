@@ -13,7 +13,7 @@ export const KeyBoard: React.FC<KeyBoardProps> = (props: KeyBoardProps) => {
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
         ['z', 'x', 'c', 'v', 'b', 'n', 'm', '/'],
     ];
-    const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
+    const [playTypingSound] = useKeySound();
     const renderLetter = (row: string[]) => {
         return row.map(rowItem => (
             <kbd
@@ -22,7 +22,7 @@ export const KeyBoard: React.FC<KeyBoardProps> = (props: KeyBoardProps) => {
                     onKeyDown(rowItem);
                     playTypingSound();
                 }}
-                className="kbd select-none active:bg-violet-700">
+                className="kbd select-none active:bg-violet-700 dark:bg-slate-600 dark:active:bg-violet-300">
                 {rowItem}
             </kbd>
         ));
