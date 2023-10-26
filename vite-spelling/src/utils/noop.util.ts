@@ -1,6 +1,6 @@
 const bannedKeys = [
     'Enter',
-    // 'Backspace',
+    'Backspace',
     'Delete',
     'Tab',
     'CapsLock',
