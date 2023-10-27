@@ -7,7 +7,10 @@ import { DBConfig } from './DB/db.config';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { DB_WORDS_TABLE_NAME } from './DB/db.enum';
-import { restWordsList } from './store/wordsReducer/wordsSlice';
+import {
+    resetAllWordsListInDB,
+    restWordsList,
+} from './store/wordsReducer/wordsSlice';
 
 initDB(DBConfig);
 
@@ -15,7 +18,10 @@ function App() {
     const { getAll } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const dispatch = useDispatch();
     useEffect(() => {
-        getAll().then(wordsFromDB => dispatch(restWordsList(wordsFromDB)));
+        getAll().then(wordsFromDB => {
+            dispatch(resetAllWordsListInDB(wordsFromDB));
+            dispatch(restWordsList(wordsFromDB));
+        });
     }, [dispatch, getAll]);
 
     return (

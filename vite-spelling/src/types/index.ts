@@ -29,3 +29,5 @@ export interface WordUpdateAction {
     len?: number;
     event?: KeyboardEvent;
 }
+
+export * from './filter.type';

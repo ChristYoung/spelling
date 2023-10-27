@@ -1,0 +1,30 @@
+import { PayloadAction, createAction } from '@reduxjs/toolkit';
+import { select, put, takeEvery } from 'redux-saga/effects';
+import { FilterWordsType, WordsItem } from '../../types';
+import { getAllWordsListInDBSelector, restWordsList } from './wordsSlice';
+
+// actions
+export const WORDS_SAGA = {
+    FILTER_WORDS: 'FILTER_WORDS',
+};
+
+export const filterWords = createAction(
+    WORDS_SAGA.FILTER_WORDS,
+    (f: FilterWordsType) => ({ payload: f }),
+);
+
+// TODO: filter Words by recent time.
+export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
+    const originalWordsList = yield select(getAllWordsListInDBSelector);
+    const { range, onlyFamiliar } = action.payload;
+    const [start, end] = range;
+    const rangeWords = originalWordsList.slice(start, end);
+    const newRangeWords = rangeWords.filter((r: WordsItem) =>
+        onlyFamiliar ? r.familiar : true,
+    );
+    yield put(restWordsList(newRangeWords));
+}
+
+export function* watchWordsSaga() {
+    yield takeEvery(WORDS_SAGA.FILTER_WORDS, filterWordsSaga);
+}

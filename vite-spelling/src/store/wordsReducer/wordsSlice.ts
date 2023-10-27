@@ -4,18 +4,22 @@ import { GlobalStoreType } from '..';
 
 export type WordsListState = {
     words: WordsItem[];
+    allWordsInDB?: WordsItem[];
     currentWordIndex: number;
     currentWord: WordsItem;
 };
 
 export const INIT_STATE: WordsListState = {
     words: [],
+    allWordsInDB: [],
     currentWordIndex: -1,
     currentWord: null,
 };
 
 export const getWordsListSelector = (state: GlobalStoreType) =>
     state.wordsList.words;
+export const getAllWordsListInDBSelector = (state: GlobalStoreType) =>
+    state.wordsList.allWordsInDB;
 export const getCurrentWordIndexSelector = (state: GlobalStoreType) =>
     state.wordsList.currentWordIndex;
 export const getCurrentWordSelector = (state: GlobalStoreType) =>
@@ -25,6 +29,13 @@ export const wordsSlice = createSlice({
     name: 'wordsSlice',
     initialState: INIT_STATE,
     reducers: {
+        resetAllWordsListInDB: (state, action: PayloadAction<WordsItem[]>) => {
+            const words = [...action.payload];
+            return {
+                ...state,
+                allWordsInDB: words,
+            };
+        },
         restWordsList: (
             state: WordsListState,
             action: PayloadAction<WordsItem[]>,
@@ -64,6 +75,7 @@ export const wordsSlice = createSlice({
 export const {
     restWordsList,
     changeCurrentWordByIndex,
+    resetAllWordsListInDB,
     updateCurrentWordProperties,
 } = wordsSlice.actions;
 export default wordsSlice.reducer;
