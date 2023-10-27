@@ -16,7 +16,7 @@ const SIZE_MAP: Record<
     lg: { width: 50, height: 50 },
 };
 
-const AudioPlayer = (props, ref) => {
+const AudioPlayer = (props: HornIconProps, ref) => {
     const { className, style, size = 'base', word, autoPlay } = props;
     const audioRef = useRef<HTMLAudioElement>(null);
 

@@ -5,7 +5,6 @@ export interface WordsItem {
     explanations?: string[]; // 释义
     example?: string; // 例句
     id?: number;
-    [x: string]: unknown;
 }
 
 export interface OutputYouDaoBaseResponse<T> {
@@ -30,3 +29,5 @@ export interface WordUpdateAction {
     len?: number;
     event?: KeyboardEvent;
 }
+
+export * from './filter.type';
