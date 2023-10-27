@@ -16,11 +16,14 @@ export const filterWords = createAction(
 // TODO: filter Words by recent time.
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     const originalWordsList = yield select(getAllWordsListInDBSelector);
-    const { range, onlyFamiliar } = action.payload;
-    const [start, end] = range;
-    const rangeWords = originalWordsList.slice(start, end);
+    const { startRange, endRange, familiarFilter } = action.payload;
+    const rangeWords = originalWordsList.slice(startRange, endRange);
     const newRangeWords = rangeWords.filter((r: WordsItem) =>
-        onlyFamiliar ? r.familiar : true,
+        familiarFilter === 'only_unfamiliar'
+            ? !r.familiar
+            : familiarFilter === 'only_familiar'
+            ? r.familiar
+            : true,
     );
     yield put(restWordsList(newRangeWords));
 }

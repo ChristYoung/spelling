@@ -1,5 +1,7 @@
 export interface FilterWordsType {
-    range?: [number, number];
+    // range?: [number, number]; // Tuple Type.
+    startRange?: number;
+    endRange?: number;
     timeFilter?: 'last_7d' | 'last_30d' | 'last_90d';
-    onlyFamiliar?: boolean;
+    familiarFilter?: 'all' | 'only_familiar' | 'only_unfamiliar';
 }
