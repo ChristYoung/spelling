@@ -31,9 +31,9 @@ export const SpellWords: React.FC = () => {
             if (currentWordIndex === wordsList.length - 1) {
                 if (wrongWords.current.length > 0) {
                     alert(
-                        `拼写结束, 您错误的单词有: ${wrongWords.current.join(
-                            ',',
-                        )}`,
+                        `拼写结束, 您错误的单词有: ${wrongWords.current
+                            .map(w => w.word)
+                            .join(',')}`,
                     );
                 } else {
                     alert('拼写结束, 全部正确！');
