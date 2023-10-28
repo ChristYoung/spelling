@@ -23,7 +23,7 @@ jobs:
 
             # 安装依赖
             - name: install deps
-              run: npm install
+              run: npm install --force
 
             # build
             # 使用deploy-github-pages-action后, 不需要build, 会自动build
