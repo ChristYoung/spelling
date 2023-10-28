@@ -36,7 +36,7 @@ jobs:
             - name: deploy apps
               uses: ptienchuan/deploy-github-pages-action@master
               env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
               with:
                   source-directory: 'dist'
                   target-branch: 'gh-pages'
