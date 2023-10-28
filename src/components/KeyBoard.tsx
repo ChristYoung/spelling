@@ -7,7 +7,7 @@ export interface KeyBoardProps
 }
 
 export const KeyBoard: React.FC<KeyBoardProps> = (props: KeyBoardProps) => {
-    const { char, onKeyDown } = props;
+    const { onKeyDown } = props;
     const keyboard_alphabet = [
         ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
         ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'],
