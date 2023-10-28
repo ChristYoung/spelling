@@ -13,7 +13,7 @@ export const getSettingSelector = (state: GlobalStoreType) => state.setting;
 export const INIT_STATE: SettingState = {
     autoPlayWordPronunciation: true,
     muteKeyBoardSound: false,
-    randomOrder: false,
+    randomOrder: true,
 };
 export const settingSlice = createSlice({
     name: 'settingSlice',

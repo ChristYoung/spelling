@@ -29,6 +29,16 @@ const bannedKeys = [
     'PageUp',
     'Clear',
     'Home',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '0',
 ];
 
 export default function noop(): void {}
@@ -42,3 +52,13 @@ export const isLegal = (char: string): boolean => {
     if (bannedKeys.includes(char)) return false;
     return true;
 };
+
+export function shuffleArray<T>(array: T[]): T[] {
+    const newArray = [...array];
+    for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    }
+
+    return newArray;
+}
