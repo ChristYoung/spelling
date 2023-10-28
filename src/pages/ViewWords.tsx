@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux';
 import { HornIcon } from '../components/icons/HornIcon';
-import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
+import { getAllWordsInDB } from '../store/wordsReducer/wordsSlice';
 
 export const ViewWords: React.FC = () => {
-    const words = useSelector(getWordsListSelector);
+    const words = useSelector(getAllWordsInDB);
 
     return (
         <div className="__ViewWords">
             <ul className="text-4xl font-mono">
-                {words.map(w => {
+                {words.map((w, _index) => {
                     return (
                         <li
                             key={w.word}
@@ -19,7 +19,7 @@ export const ViewWords: React.FC = () => {
                                 className={`flex w-full text-lg items-center justify-between`}>
                                 <div className="flex-1">
                                     <p className="mb-5 text-left text-3xl">
-                                        {w.word}
+                                        <em className="mr-5">{_index}.</em><span className="italic">{w.word}</span>
                                     </p>
                                     <p className="text-2xl text-left">
                                         {w.explanations}

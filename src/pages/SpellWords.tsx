@@ -61,6 +61,9 @@ export const SpellWords: React.FC = () => {
                                     value={progress}
                                     max="100"></progress>
                             </div>
+                            <div className="text-2xl">
+                                 <span>{currentWordIndex + '/' + wordsList.length}</span>
+                            </div>
                             <div className="container flex flex-grow flex-col items-center justify-center">
                                 <div className="relative flex w-full justify-center">
                                     <SpellCard
