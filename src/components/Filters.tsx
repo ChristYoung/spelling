@@ -106,13 +106,13 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                 </div>
                 <div className="modal-action">
                     {/* if there is a button, it will close the modal */}
-                    <button
+                    <div
                         className="btn text-xl"
                         onClick={() => {
                             onConfirm(formData);
                         }}>
                         Confirm
-                    </button>
+                    </div>
                 </div>
             </form>
         </div>

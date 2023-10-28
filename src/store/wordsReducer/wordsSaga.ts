@@ -36,9 +36,7 @@ export function* resetOriginalWordsSaga() {
 }
 
 export function* resetWordsSaga(action: PayloadAction<WordsItem[]>) {
-    console.log('action',action);
     const words = action.payload;
-    console.log('words',words)
     const settingConfig = yield select(getSettingSelector);
     const newRangeWords = (settingConfig as SettingState).randomOrder
         ? shuffleArray(words)

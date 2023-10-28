@@ -30,7 +30,10 @@ export const Header: React.FC = () => {
                 id="setting_dialog"
                 ref={settingDialogRef}
                 className="modal">
-                <Filters onConfirm={params => dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params })} />
+                <Filters onConfirm={params => {
+                    dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params });
+                    settingDialogRef.current.close();
+                }} />
             </dialog>
         </>
     );
