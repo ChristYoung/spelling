@@ -16,7 +16,6 @@ export function InputHandler(props: UpdateInputFn) {
             }
 
             if (isLegal(key) && !e.altKey && !e.ctrlKey && !e.metaKey) {
-                // updateInput({ type: 'add', value: char, event: e });
                 updateInput({ key, code });
             }
         },

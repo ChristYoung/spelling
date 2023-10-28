@@ -9,6 +9,7 @@ import { SpellOperator } from '../components/SpellOperator';
 import { KeyBoard } from '../components/KeyBoard';
 import { useRef, useState } from 'react';
 import { WordsItem } from '../types';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 
 export const SpellWords: React.FC = () => {
     const dispatch = useDispatch();
@@ -41,9 +42,9 @@ export const SpellWords: React.FC = () => {
     };
     const confirmBtnClicked = () => {
         if (wrongWords.current.length > 0) {
-            dispatch({ type: 'RESET_WORDS', payload: wrongWords.current });
+            dispatch({ type: WORDS_SAGA.RESET_WORDS, payload: wrongWords.current });
         } else {
-            dispatch({ type: 'RESET_ORIGINAL_WORDS' });
+            dispatch({ type: WORDS_SAGA.RESET_ORIGINAL_WORDS });
         }
         wrongWords.current = [];
         wrongWordsDialogRef.current.close();
