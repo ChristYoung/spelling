@@ -1,6 +1,6 @@
 # github action 如何配置secret.ACCESS_TOKEN
 # https://blog.csdn.net/ht370671963/article/details/111995883
-name: deploy-notions
+name: spelling-react
 
 on:
     push:
