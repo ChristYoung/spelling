@@ -85,12 +85,12 @@ export const SpellWords: React.FC = () => {
                                 The following words are spelled incorrectly,
                                 rewrite them?
                             </p>
-                            <div className="text-2xl mt-10">
+                            <div className="text-2xl mt-10 flex flex-wrap">
                                 {wrongWords.current.length > 0 ? (
                                     wrongWords.current.map(w => (
                                         <span
                                             key={`_wrong_word_${w.word}`}
-                                            className="text-2xl ml-6">
+                                            className="text-2xl ml-6 mb-3 block border-solid border-cyan-600 border-2 p-5 rounded-full cursor-pointer">
                                             {w.word}
                                         </span>
                                     ))
