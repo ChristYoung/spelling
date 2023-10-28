@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { DB_WORDS_TABLE_NAME } from './DB/db.enum';
 import { resetAllWordsListInDB } from './store/wordsReducer/wordsSlice';
+import { WORDS_SAGA } from './store/wordsReducer/wordsSaga';
 
 initDB(DBConfig);
 
@@ -17,7 +18,7 @@ function App() {
     useEffect(() => {
         getAll().then(wordsFromDB => {
             dispatch(resetAllWordsListInDB(wordsFromDB));
-            dispatch({ type: 'RESET_WORDS', payload: wordsFromDB });
+            dispatch({ type: WORDS_SAGA.RESET_WORDS, payload: wordsFromDB });
         });
     }, [dispatch, getAll]);
 
