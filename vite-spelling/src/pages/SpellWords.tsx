@@ -4,7 +4,6 @@ import {
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
-    restWordsList,
 } from '../store/wordsReducer/wordsSlice';
 import { SpellOperator } from '../components/SpellOperator';
 import { KeyBoard } from '../components/KeyBoard';
@@ -42,7 +41,7 @@ export const SpellWords: React.FC = () => {
     };
     const confirmBtnClicked = () => {
         if (wrongWords.current.length > 0) {
-            dispatch(restWordsList(wrongWords.current));
+            dispatch({ type: 'RESET_WORDS', payload: wrongWords.current });
         } else {
             dispatch({ type: 'RESET_ORIGINAL_WORDS' });
         }
