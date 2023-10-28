@@ -1,16 +1,18 @@
 import { useRef } from 'react';
 import { ThemeSwitch } from './ThemeSwitch';
-import { AiFillSetting } from 'react-icons/ai';
+import { AiFillSetting, AiOutlineFilter } from 'react-icons/ai';
 import { Filters } from './Filters';
 import { useDispatch } from 'react-redux';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
+import { Settings } from './Settings';
+import { SettingState, updateSetting } from '../store/settingReducer/settingSlice';
 
 export const Header: React.FC = () => {
+    const filterDialogRef = useRef<HTMLDialogElement>(null);
     const settingDialogRef = useRef<HTMLDialogElement>(null);
     const dispatch = useDispatch();
-    const openSettingDialog = () => {
-        settingDialogRef.current.showModal();
-    };
+    const openFilterDialog = () => filterDialogRef.current.showModal();
+    const openSettingDialog = () => settingDialogRef.current.showModal();
 
     return (
         <>
@@ -20,20 +22,36 @@ export const Header: React.FC = () => {
                     onClick={openSettingDialog}>
                     <AiFillSetting />
                 </div>
+                <div
+                    className="text-5xl cursor-pointer"
+                    onClick={openFilterDialog}>
+                    <AiOutlineFilter />
+                </div>
                 <div>
                     <ThemeSwitch />
                 </div>
             </div>
+
+            {/* filter dialog */}
+            <dialog
+                id="filter_dialog"
+                ref={filterDialogRef}
+                className="modal">
+                <Filters onConfirm={params => {
+                    dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params });
+                    filterDialogRef.current.close();
+                }} />
+            </dialog>
 
             {/* setting dialog */}
             <dialog
                 id="setting_dialog"
                 ref={settingDialogRef}
                 className="modal">
-                <Filters onConfirm={params => {
-                    dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params });
-                    settingDialogRef.current.close();
-                }} />
+                    <Settings onConfirm={(configs: SettingState) => {
+                        dispatch(updateSetting(configs));
+                        settingDialogRef.current.close();
+                    }} />
             </dialog>
         </>
     );
