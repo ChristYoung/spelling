@@ -26,12 +26,12 @@ export const Header: React.FC = () => {
             </div>
 
             {/* setting dialog */}
-            <dialog
+            {/* <dialog
                 id="setting_dialog"
                 ref={settingDialogRef}
                 className="modal">
                 <Filters onConfirm={params => dispatch(filterWords(params))} />
-            </dialog>
+            </dialog> */}
         </>
     );
 };

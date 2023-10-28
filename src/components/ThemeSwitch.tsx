@@ -63,7 +63,7 @@ export const ThemeSwitch: React.FC = () => {
     };
 
     useEffect(() => {
-        const htmlClasses = `text-base h-full ${darkMode ? 'dark' : ''}`;
+        const htmlClasses = `text-base ${darkMode ? 'dark' : ''}`;
         document.documentElement.className = htmlClasses;
     }, [darkMode]);
 
