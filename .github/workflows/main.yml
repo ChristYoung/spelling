@@ -33,8 +33,8 @@ jobs:
             # deploy
             # 使用action市场已有的action deploy-github-pages-action
             # https://github.com/marketplace/actions/deploy-github-pages
-            - name: deploy apps
-              uses: ptienchuan/deploy-github-pages-action@master
+            - name: Deploy Github Pages
+              uses: tienchuan/deploy-github-pages-action@1.0.0
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
