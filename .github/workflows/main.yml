@@ -34,7 +34,7 @@ jobs:
             # 使用action市场已有的action deploy-github-pages-action
             # https://github.com/marketplace/actions/deploy-github-pages
             - name: deploy apps
-              uses: ptienchuan/deploy-github-pages-action@main
+              uses: ptienchuan/deploy-github-pages-action@master
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               with:
