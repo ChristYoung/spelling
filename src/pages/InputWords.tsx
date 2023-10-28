@@ -23,7 +23,6 @@ export const InputWords: React.FC = () => {
             setLoading(false);
             return;
         }
-
         // TODO: 验证单词拼写是否正确.
 
         const wordsToAdd: WordsItem[] = words.map(word => {
@@ -67,7 +66,6 @@ export const InputWords: React.FC = () => {
             <div>
                 <button
                     className="btn btn-success btn-lg btn-wide"
-                    disabled={!value.current || loading}
                     onClick={onSubmitWords}>
                     <span
                         className={
