@@ -24,12 +24,16 @@ export const SpellWords: React.FC = () => {
             : (currentWordIndex / wordsList.length) * 100;
     const keyDownHandler = (char: string) => setChar(char);
     const [char, setChar] = useState('');
+    const isInWrongWordList = (word: WordsItem) =>
+        wrongWords.current.some(wrongWord => wrongWord.word === word.word);
     const handleFinishSpell = (
         wrongWord: WordsItem,
         status: 'CORRECT' | 'WRONG',
     ) => {
         if (status === 'WRONG') {
-            wrongWords.current.push(wrongWord);
+            if (!isInWrongWordList(wrongWord)) {
+                wrongWords.current.push(wrongWord);
+            }
         } else {
             if (currentWordIndex === wordsList.length - 1) {
                 wrongWordsDialogRef.current.showModal();
