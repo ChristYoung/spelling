@@ -6,6 +6,7 @@ import { getAllWordsListInDBSelector, restWordsList } from './wordsSlice';
 // actions
 export const WORDS_SAGA = {
     FILTER_WORDS: 'FILTER_WORDS',
+    RESET_ORIGINAL_WORDS: 'RESET_ORIGINAL_WORDS',
 };
 
 export const filterWords = createAction(
@@ -28,6 +29,12 @@ export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     yield put(restWordsList(newRangeWords));
 }
 
+export function* resetOriginalWordsSaga() {
+    const originalWordsList = yield select(getAllWordsListInDBSelector);
+    yield put(restWordsList(originalWordsList));
+}
+
 export function* watchWordsSaga() {
     yield takeEvery(WORDS_SAGA.FILTER_WORDS, filterWordsSaga);
+    yield takeEvery(WORDS_SAGA.RESET_ORIGINAL_WORDS, resetOriginalWordsSaga);
 }

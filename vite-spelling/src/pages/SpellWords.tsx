@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SpellCard } from '../components/SpellCard';
 import {
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
+    restWordsList,
 } from '../store/wordsReducer/wordsSlice';
 import { SpellOperator } from '../components/SpellOperator';
 import { KeyBoard } from '../components/KeyBoard';
@@ -11,10 +12,12 @@ import { useRef, useState } from 'react';
 import { WordsItem } from '../types';
 
 export const SpellWords: React.FC = () => {
+    const dispatch = useDispatch();
     const currentWord = useSelector(getCurrentWordSelector);
     const wordsList = useSelector(getWordsListSelector);
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const wrongWords = useRef<WordsItem[]>([]);
+    const wrongWordsDialogRef = useRef<HTMLDialogElement>(null);
     const progress =
         currentWordIndex + 1 >= wordsList.length
             ? 100
@@ -29,43 +32,80 @@ export const SpellWords: React.FC = () => {
             wrongWords.current.push(wrongWord);
         } else {
             if (currentWordIndex === wordsList.length - 1) {
-                if (wrongWords.current.length > 0) {
-                    alert(
-                        `拼写结束, 您错误的单词有: ${wrongWords.current
-                            .map(w => w.word)
-                            .join(',')}`,
-                    );
-                } else {
-                    alert('拼写结束, 全部正确！');
-                }
+                wrongWordsDialogRef.current.showModal();
             }
         }
     };
+    const confirmBtnClicked = () => {
+        if (wrongWords.current.length > 0) {
+            dispatch(restWordsList(wrongWords.current));
+        } else {
+            dispatch({ type: 'RESET_ORIGINAL_WORDS' });
+        }
+        wrongWords.current = [];
+        wrongWordsDialogRef.current.close();
+    };
     return (
-        <div className="container mx-auto flex h-[500px] flex-1 flex-col items-center justify-center pb-5">
-            <div className="container relative mx-auto flex h-full flex-col items-center">
-                <div className="container flex flex-grow items-center justify-center">
-                    <div className="container flex h-full w-full flex-col items-center justify-center">
-                        <div className="container flex h-24 w-full shrink-0 grow-0 justify-between px-12 pt-10">
-                            <progress
-                                className="progress w-full progress-accent"
-                                value={progress}
-                                max="100"></progress>
-                        </div>
-                        <div className="container flex flex-grow flex-col items-center justify-center">
-                            <div className="relative flex w-full justify-center">
-                                <SpellCard
-                                    {...currentWord}
-                                    onFinishSpell={handleFinishSpell}
-                                    char={char}
-                                />
+        <>
+            <div className="container mx-auto flex h-[500px] flex-1 flex-col items-center justify-center pb-5">
+                <div className="container relative mx-auto flex h-full flex-col items-center">
+                    <div className="container flex flex-grow items-center justify-center">
+                        <div className="container flex h-full w-full flex-col items-center justify-center">
+                            <div className="container flex h-24 w-full shrink-0 grow-0 justify-between px-12 pt-10">
+                                <progress
+                                    className="progress w-full progress-accent"
+                                    value={progress}
+                                    max="100"></progress>
+                            </div>
+                            <div className="container flex flex-grow flex-col items-center justify-center">
+                                <div className="relative flex w-full justify-center">
+                                    <SpellCard
+                                        {...currentWord}
+                                        onFinishSpell={handleFinishSpell}
+                                        char={char}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <SpellOperator />
+                <KeyBoard onKeyDown={keyDownHandler} />
+
+                <dialog
+                    id="wrong_words_dialog"
+                    ref={wrongWordsDialogRef}
+                    className="modal">
+                    <div className="modal-box w-11/12 max-w-5xl">
+                        <div className="py-4 text-2xl">
+                            <p className="mt-10 text-3xl">
+                                The following words are spelled incorrectly,
+                                rewrite them?
+                            </p>
+                            <div className="text-2xl mt-10">
+                                {wrongWords.current.length > 0 ? (
+                                    wrongWords.current.map(w => (
+                                        <span
+                                            key={`_wrong_word_${w.word}`}
+                                            className="text-2xl ml-6">
+                                            {w.word}
+                                        </span>
+                                    ))
+                                ) : (
+                                    <div>Congratulations! No wrong words!</div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="modal-action">
+                            <button
+                                className="btn"
+                                onClick={confirmBtnClicked}>
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                </dialog>
             </div>
-            <SpellOperator />
-            <KeyBoard onKeyDown={keyDownHandler} />
-        </div>
+        </>
     );
 };
