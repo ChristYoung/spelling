@@ -44,9 +44,9 @@ export const wordsSlice = createSlice({
             return {
                 ...state,
                 words,
-                currentWord: words[0],
-                currentWordIndex: 0,
-                currentWordId: words[0].id,
+                currentWord: words?.length > 0 ? words[0] : null,
+                currentWordIndex: words?.length > 0 ? 0 : -1,
+                currentWordId: words?.length > 0 ? words[0].id : null,
             };
         },
         changeCurrentWordByIndex: (
