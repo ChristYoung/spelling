@@ -3,7 +3,7 @@ import { ThemeSwitch } from './ThemeSwitch';
 import { AiFillSetting } from 'react-icons/ai';
 import { Filters } from './Filters';
 import { useDispatch } from 'react-redux';
-import { filterWords } from '../store/wordsReducer/wordsSaga';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 
 export const Header: React.FC = () => {
     const settingDialogRef = useRef<HTMLDialogElement>(null);
@@ -30,7 +30,7 @@ export const Header: React.FC = () => {
                 id="setting_dialog"
                 ref={settingDialogRef}
                 className="modal">
-                <Filters onConfirm={params => dispatch(filterWords(params))} />
+                <Filters onConfirm={params => dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params })} />
             </dialog>
         </>
     );

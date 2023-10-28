@@ -1,14 +1,9 @@
-import { MenuCard, MenuCardProps } from '../components/MenuCard';
-import { useIndexedDB } from 'react-indexed-db-hook';
-import { useDispatch } from 'react-redux';
 import {
+    BsEyeFill,
     BsFillLightningChargeFill,
     BsSpellcheck,
-    BsEyeFill,
 } from 'react-icons/bs';
-import { useEffect } from 'react';
-import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { restWordsList } from '../store/wordsReducer/wordsSlice';
+import { MenuCard, MenuCardProps } from '../components/MenuCard';
 
 const MenuList: MenuCardProps[] = [
     {
@@ -32,13 +27,6 @@ const MenuList: MenuCardProps[] = [
 ];
 
 export const Home: React.FC = () => {
-    const { getAll } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        getAll().then(wordsFromDB => dispatch(restWordsList(wordsFromDB)));
-    }, [dispatch, getAll]);
-
     return (
         <div className="__Home">
             <div className="flex justify-between">
