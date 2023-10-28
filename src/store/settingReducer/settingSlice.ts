@@ -14,6 +14,7 @@ export const INIT_STATE: SettingState = {
     autoPlayWordPronunciation: true,
     muteKeyBoardSound: false,
     randomOrder: true,
+    onlyShowExplanationWhenSpelling: false,
 };
 export const settingSlice = createSlice({
     name: 'settingSlice',

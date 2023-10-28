@@ -16,8 +16,6 @@ export const INIT_STATE: WordsListState = {
     currentWord: null,
 };
 
-export const getAllWordsInDB = (state: GlobalStoreType) => 
-    state.wordsList.allWordsInDB; 
 export const getWordsListSelector = (state: GlobalStoreType) =>
     state.wordsList.words;
 export const getAllWordsListInDBSelector = (state: GlobalStoreType) =>

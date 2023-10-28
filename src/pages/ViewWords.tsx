@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux';
 import { HornIcon } from '../components/icons/HornIcon';
-import { getAllWordsInDB } from '../store/wordsReducer/wordsSlice';
+import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
 
 export const ViewWords: React.FC = () => {
-    const words = useSelector(getAllWordsInDB);
+    const words = useSelector(getWordsListSelector);
 
     return (
         <div className="__ViewWords">
