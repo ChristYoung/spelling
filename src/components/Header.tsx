@@ -1,9 +1,8 @@
 import { useRef } from 'react';
 import { AiFillSetting, AiOutlineFilter } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SettingState, updateSetting } from '../store/settingReducer/settingSlice';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
-import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
 import { Filters } from './Filters';
 import { Settings } from './Settings';
 import { ThemeSwitch } from './ThemeSwitch';
@@ -14,7 +13,6 @@ export const Header: React.FC = () => {
     const dispatch = useDispatch();
     const openFilterDialog = () => filterDialogRef.current.showModal();
     const openSettingDialog = () => settingDialogRef.current.showModal();
-    const currentWordsList = useSelector(getWordsListSelector);
 
     return (
         <>
