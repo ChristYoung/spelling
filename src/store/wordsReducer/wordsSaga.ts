@@ -6,13 +6,14 @@ import {
     SettingState,
     getSettingSelector,
 } from '../settingReducer/settingSlice';
-import { getAllWordsListInDBSelector, restWordsList } from './wordsSlice';
+import { getAllWordsListInDBSelector, restWordsList, getWordsListSelector } from './wordsSlice';
 
 // actions
 export const WORDS_SAGA = {
     FILTER_WORDS: 'FILTER_WORDS',
     RESET_ORIGINAL_WORDS: 'RESET_ORIGINAL_WORDS',
     RESET_WORDS: 'RESET_WORDS',
+    RESET_WORDS_ORDER: 'RESET_WORDS_ORDER',
 };
 
 // TODO: filter Words by recent time.
@@ -44,8 +45,17 @@ export function* resetWordsSaga(action: PayloadAction<WordsItem[]>) {
     yield put(restWordsList(newRangeWords));
 }
 
+export function* changeWordsOrderSaga(action: PayloadAction<{ orderType: 'RANDOM' | 'ASCENDING' }>) {
+    const words = yield select(getWordsListSelector);
+    const orderType = action.payload.orderType;
+    // we need to use [...words] to sort in order to avoid `TypeError: Cannot assign to read only property '0' of object '[object Array]' in typescript` error.
+    const newRangeWords = orderType === 'RANDOM' ? shuffleArray(words) : [...words].sort((a, b) => a.id - b.id);
+    yield put(restWordsList(newRangeWords));
+}
+
 export function* watchWordsSaga() {
     yield takeEvery(WORDS_SAGA.FILTER_WORDS, filterWordsSaga);
     yield takeEvery(WORDS_SAGA.RESET_ORIGINAL_WORDS, resetOriginalWordsSaga);
     yield takeEvery(WORDS_SAGA.RESET_WORDS, resetWordsSaga);
+    yield takeEvery(WORDS_SAGA.RESET_WORDS_ORDER, changeWordsOrderSaga);
 }

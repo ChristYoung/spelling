@@ -1,11 +1,12 @@
 import { useRef } from 'react';
-import { ThemeSwitch } from './ThemeSwitch';
 import { AiFillSetting, AiOutlineFilter } from 'react-icons/ai';
-import { Filters } from './Filters';
-import { useDispatch } from 'react-redux';
-import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
-import { Settings } from './Settings';
+import { useDispatch, useSelector } from 'react-redux';
 import { SettingState, updateSetting } from '../store/settingReducer/settingSlice';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
+import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
+import { Filters } from './Filters';
+import { Settings } from './Settings';
+import { ThemeSwitch } from './ThemeSwitch';
 
 export const Header: React.FC = () => {
     const filterDialogRef = useRef<HTMLDialogElement>(null);
@@ -13,6 +14,7 @@ export const Header: React.FC = () => {
     const dispatch = useDispatch();
     const openFilterDialog = () => filterDialogRef.current.showModal();
     const openSettingDialog = () => settingDialogRef.current.showModal();
+    const currentWordsList = useSelector(getWordsListSelector);
 
     return (
         <>
@@ -50,6 +52,8 @@ export const Header: React.FC = () => {
                 className="modal">
                     <Settings onConfirm={(configs: SettingState) => {
                         dispatch(updateSetting(configs));
+                        const orderType = configs.randomOrder ? 'RANDOM' : 'ASCENDING';
+                        dispatch({ type: WORDS_SAGA.RESET_WORDS_ORDER, payload: { orderType } });
                         settingDialogRef.current.close();
                     }} />
             </dialog>
