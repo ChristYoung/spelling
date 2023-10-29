@@ -3,10 +3,12 @@ import { isChineseSymbol, isLegal } from '../utils';
 
 export interface UpdateInputFn {
     updateInput: (letter: { key: string; code?: string }) => void;
+    keyList: { bannedList: string[], allowedList: string[] };
 }
 
 export function InputHandler(props: UpdateInputFn) {
     const { updateInput } = props;
+    const { bannedList, allowedList } = props.keyList;
     const onKeyDown = useCallback(
         (e: KeyboardEvent) => {
             const { key, code } = e;
@@ -15,7 +17,7 @@ export function InputHandler(props: UpdateInputFn) {
                 return;
             }
 
-            if (isLegal(key) && !e.altKey && !e.ctrlKey && !e.metaKey) {
+            if (isLegal(key, { bannedList, allowedList }) && !e.altKey && !e.ctrlKey && !e.metaKey) {
                 updateInput({ key, code });
             }
         },

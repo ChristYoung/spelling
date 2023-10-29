@@ -9,6 +9,7 @@ import { WordsItem } from '../types';
 import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
 import { getSettingSelector } from '../store/settingReducer/settingSlice';
+import { BANNED_KEYS } from '../utils';
 
 export interface SpellCardProps extends WordsItem {
     char?: string;
@@ -67,7 +68,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
 
     return (
         <>
-            <InputHandler updateInput={updateInput}></InputHandler>
+            <InputHandler updateInput={updateInput} keyList={{ bannedList: BANNED_KEYS, allowedList: [] }}></InputHandler>
             <div className="relative">
                 <div
                     lang="en"

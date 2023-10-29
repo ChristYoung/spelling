@@ -14,6 +14,7 @@ import {
 } from '../store/wordsReducer/wordsSlice';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
+import { InputHandler } from './InputHandler';
 
 export const SpellOperator: React.FC = () => {
     const dispatch = useDispatch();
@@ -21,6 +22,28 @@ export const SpellOperator: React.FC = () => {
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const currentWord = useSelector(getCurrentWordSelector);
     const wordsList = useSelector(getWordsListSelector);
+    const switchNext = () => {
+        if (currentWordIndex + 1 < wordsList.length) {
+            dispatch(
+                changeCurrentWordByIndex(currentWordIndex + 1),
+            );
+        }
+    };
+    const switchPrev = () => {
+        if (currentWordIndex > 0) {
+            dispatch(
+                changeCurrentWordByIndex(currentWordIndex - 1),
+            );
+        }
+    };
+    const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
+        const { key } = keyboardEventObj;
+        if (key === 'ArrowLeft') {
+            switchPrev();
+        } else {
+            switchNext();
+        }
+    };
 
     return (
         <div
@@ -35,13 +58,7 @@ export const SpellOperator: React.FC = () => {
                         ? 'cursor-not-allowed'
                         : 'cursor-pointer'
                 }`}
-                onClick={() => {
-                    if (currentWordIndex > 0) {
-                        dispatch(
-                            changeCurrentWordByIndex(currentWordIndex - 1),
-                        );
-                    }
-                }}>
+                onClick={switchPrev}>
                 <span className="w-4/5 pb-2 text-center font-bold text-gray-600 transition-colors duration-300 dark:text-gray-400">
                     <AiOutlineArrowLeft style={{ display: 'inline' }} />
                 </span>
@@ -78,17 +95,12 @@ export const SpellOperator: React.FC = () => {
                         ? 'cursor-pointer'
                         : 'cursor-not-allowed'
                 }`}
-                onClick={() => {
-                    if (currentWordIndex + 1 < wordsList.length) {
-                        dispatch(
-                            changeCurrentWordByIndex(currentWordIndex + 1),
-                        );
-                    }
-                }}>
+                onClick={switchNext}>
                 <span className="w-4/5 pb-2 text-center font-bold text-gray-600 transition-colors duration-300 dark:text-gray-400">
                     <AiOutlineArrowRight style={{ display: 'inline' }} />
                 </span>
             </div>
+            <InputHandler updateInput={updateInput} keyList={{ bannedList: [], allowedList: ['ArrowLeft', 'ArrowRight'] }}></InputHandler>
         </div>
     );
 };
