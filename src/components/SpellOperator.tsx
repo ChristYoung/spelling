@@ -15,9 +15,15 @@ import {
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { InputHandler } from './InputHandler';
+import { WordsItem } from '../types';
 
-export const SpellOperator: React.FC = () => {
+export interface SpellOperatorProps {
+    onIgnoreWord: (word: WordsItem) => void
+}
+
+export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperatorProps) => {
     const dispatch = useDispatch();
+    const { onIgnoreWord } = props;
     const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const currentWord = useSelector(getCurrentWordSelector);
@@ -27,6 +33,7 @@ export const SpellOperator: React.FC = () => {
             dispatch(
                 changeCurrentWordByIndex(currentWordIndex + 1),
             );
+            onIgnoreWord(currentWord);
         }
     };
     const switchPrev = () => {
@@ -34,6 +41,7 @@ export const SpellOperator: React.FC = () => {
             dispatch(
                 changeCurrentWordByIndex(currentWordIndex - 1),
             );
+            onIgnoreWord(currentWord);
         }
     };
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {

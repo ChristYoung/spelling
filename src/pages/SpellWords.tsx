@@ -76,7 +76,7 @@ export const SpellWords: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <SpellOperator />
+                <SpellOperator onIgnoreWord={(w: WordsItem) => handleFinishSpell(w, 'WRONG')} />
                 <KeyBoard onKeyDown={keyDownHandler} />
 
                 <dialog
