@@ -104,11 +104,11 @@ export const SpellWords: React.FC = () => {
                             </div>
                         </div>
                         <div className="modal-action">
-                            <button
+                            <div
                                 className="btn"
                                 onClick={confirmBtnClicked}>
                                 Confirm
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </dialog>
