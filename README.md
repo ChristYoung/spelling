@@ -73,3 +73,10 @@ If you are developing a production application, we recommend updating the config
    </React.StrictMode>,
    )
    ```
+
+ # 启动
+  - 访问地址 http://127.0.0.1:5173/#/view
+  - daisyUI: https://daisyui.com/docs/install/
+
+
+ 

@@ -112,7 +112,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         <input
                                             type="radio"
                                             id="last_7"
-                                            name="familiarFilter"
+                                            name="timeFilter"
                                             onChange={handleChange}
                                             value={-7}
                                             checked={
@@ -128,7 +128,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         <input
                                             type="radio"
                                             id="last_30"
-                                            name="familiarFilter"
+                                            name="timeFilter"
                                             onChange={handleChange}
                                             value={-30}
                                             checked={
@@ -144,7 +144,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         <input
                                             type="radio"
                                             id="last_90"
-                                            name="familiarFilter"
+                                            name="timeFilter"
                                             onChange={handleChange}
                                             value={-90}
                                             checked={
