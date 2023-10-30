@@ -11,6 +11,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
         startRange: 0,
         endRange: 100,
         familiarFilter: 'all',
+        timeFilter: null
     });
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -99,6 +100,59 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                             className="radio radio-success mx-5 cursor-pointer"
                                         />
                                         Only Familiar
+                                    </label>
+                                </div>
+                            </li>
+                            <li className="flex items-center">
+                                <p>Pick recent words:</p>
+                                <div className="flex items-center ml-5">
+                                    <label
+                                        className="cursor-pointer label"
+                                        htmlFor="last_7">
+                                        <input
+                                            type="radio"
+                                            id="last_7"
+                                            name="familiarFilter"
+                                            onChange={handleChange}
+                                            value={-7}
+                                            checked={
+                                                formData.timeFilter === -7
+                                            }
+                                            className="radio radio-success mx-5 cursor-pointer"
+                                        />
+                                        last 7 days
+                                    </label>
+                                    <label
+                                        className="cursor-pointer label"
+                                        htmlFor="last_30">
+                                        <input
+                                            type="radio"
+                                            id="last_30"
+                                            name="familiarFilter"
+                                            onChange={handleChange}
+                                            value={-30}
+                                            checked={
+                                                formData.timeFilter === -30
+                                            }
+                                            className="radio radio-success mx-5 cursor-pointer"
+                                        />
+                                        last 30 days
+                                    </label>
+                                    <label
+                                        className="cursor-pointer label"
+                                        htmlFor="last_90">
+                                        <input
+                                            type="radio"
+                                            id="last_90"
+                                            name="familiarFilter"
+                                            onChange={handleChange}
+                                            value={-90}
+                                            checked={
+                                                formData.timeFilter === -90
+                                            }
+                                            className="radio radio-success mx-5 cursor-pointer"
+                                        />
+                                        last 90 days
                                     </label>
                                 </div>
                             </li>

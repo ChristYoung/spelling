@@ -1,7 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { put, select, takeEvery } from 'redux-saga/effects';
 import { FilterWordsType, WordsItem } from '../../types';
-import { shuffleArray } from '../../utils';
+import { getXDaysAgoOrAfterTime, shuffleArray } from '../../utils';
 import {
     SettingState,
     getSettingSelector,
@@ -16,11 +16,13 @@ export const WORDS_SAGA = {
     RESET_WORDS_ORDER: 'RESET_WORDS_ORDER',
 };
 
-// TODO: filter Words by recent time.
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     const originalWordsList = yield select(getAllWordsListInDBSelector);
-    const { startRange, endRange, familiarFilter } = action.payload;
+    const { startRange, endRange, familiarFilter, timeFilter } = action.payload;
+    // 0. filter by range.
     const rangeWords = originalWordsList.slice(startRange, endRange);
+
+    // 1. filter by word's status.
     const filterWords = rangeWords.filter((r: WordsItem) =>
         familiarFilter === 'only_unfamiliar'
             ? !r.familiar
@@ -28,12 +30,15 @@ export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
             ? r.familiar
             : true,
     );
-    yield put({ type: WORDS_SAGA.RESET_WORDS, payload: filterWords});
+
+    // 2. filter by recent time.
+    const filterWordByTime = (filterWords as WordsItem[]).filter(w => w.created_timestamp >= getXDaysAgoOrAfterTime(timeFilter));
+    yield put({ type: WORDS_SAGA.RESET_WORDS, payload: filterWordByTime });
 }
 
 export function* resetOriginalWordsSaga() {
     const originalWordsList = yield select(getAllWordsListInDBSelector);
-    yield put({ type: WORDS_SAGA.RESET_WORDS, payload: originalWordsList});
+    yield put({ type: WORDS_SAGA.RESET_WORDS, payload: originalWordsList });
 }
 
 export function* resetWordsSaga(action: PayloadAction<WordsItem[]>) {
