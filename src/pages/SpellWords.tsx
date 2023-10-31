@@ -51,7 +51,7 @@ export const SpellWords: React.FC = () => {
     };
     return (
         <>
-            <div className="container mx-auto flex h-[500px] flex-1 flex-col items-center justify-center pb-5">
+            <div className="container_spell_words mx-auto flex h-[500px] flex-1 flex-col items-center justify-center pb-5 mt-56">
                 <div className="container relative mx-auto flex h-full flex-col items-center">
                     <div className="container flex flex-grow items-center justify-center">
                         <div className="container flex h-full w-full flex-col items-center justify-center">

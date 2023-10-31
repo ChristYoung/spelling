@@ -24,7 +24,7 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
-    const { word, explanations, char, onFinishSpell, mode = 'SPELLING' } = props;
+    const { word, explanations, char, onFinishSpell, phonetic, example, example_zh, mode = 'SPELLING' } = props;
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
     const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
@@ -77,7 +77,8 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 <div
                     lang="en"
                     className="flex flex-col items-center justify-center pb-1 pt-4">
-                    <div className="tooltip-info relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
+                    {settingConfig.showPhonetic && <p className="mt-5 text-2xl">/{phonetic}/</p>}
+                    <div className="tooltip-info mt-2 relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
                         <div className="flex items-center false justify-center select-none">
                             {word &&
                                 word.split('').map((w, _index) => {
@@ -119,6 +120,10 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                             : '--'}
                     </span>
                 </div>
+                {settingConfig.showExample && <div className="examples py-4 text-3xl mb-10">
+                    <p className="my-3 italic">{example}</p>
+                    <p className="text-2xl my-3 italic">{example_zh}</p>
+                </div>}
             </div>
         </>
     );
