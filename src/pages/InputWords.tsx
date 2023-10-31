@@ -24,6 +24,7 @@ export const InputWords: React.FC = () => {
             return;
         }
         // TODO: 验证单词拼写是否正确.
+        // something...
 
         const wordsToAdd: WordsItem[] = words.map(word => {
             return {

@@ -23,11 +23,5 @@ export interface OutputYouDaoExplanationData {
     }>;
 }
 
-export interface WordUpdateAction {
-    type: 'add' | 'remove';
-    value?: string;
-    len?: number;
-    event?: KeyboardEvent;
-}
-
 export * from './filter.type';
+export * from './relingo.type';
