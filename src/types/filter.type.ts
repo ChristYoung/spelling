@@ -4,4 +4,5 @@ export interface FilterWordsType {
     endRange?: number;
     timeFilter?: -7 | -30 | -90 | -99999;
     familiarFilter?: 'all' | 'only_familiar' | 'only_unfamiliar';
+    resetOriginal?: boolean;
 }

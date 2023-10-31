@@ -18,7 +18,14 @@ export const WORDS_SAGA = {
 
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     const originalWordsList = yield select(getAllWordsListInDBSelector);
-    const { startRange, endRange, familiarFilter, timeFilter } = action.payload;
+    const { startRange, endRange, familiarFilter, timeFilter, resetOriginal } = action.payload;
+
+    // reset all words
+    if (resetOriginal) {
+        yield put({ type: WORDS_SAGA.RESET_ORIGINAL_WORDS });
+        return;
+    }
+
     // 0. filter by range.
     const rangeWords = originalWordsList.slice(startRange, endRange);
 
