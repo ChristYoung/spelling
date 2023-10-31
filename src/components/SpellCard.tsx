@@ -14,6 +14,7 @@ import { BANNED_KEYS } from '../utils';
 export interface SpellCardProps extends WordsItem {
     char?: string;
     onFinishSpell?: (wordItem: WordsItem, status: 'CORRECT' | 'WRONG') => void;
+    mode?: 'VIEW' | 'SPELLING';
 }
 
 export const SpellingStateClassNames = {
@@ -23,14 +24,16 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
-    const { word, explanations, char, onFinishSpell } = props;
+    const { word, explanations, char, onFinishSpell, mode = 'SPELLING' } = props;
+    console.log('mode',mode)
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
+    const _words = mode === 'VIEW' ? word?.split('') : [];
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const dispatch = useDispatch();
-    const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
+    const updateInput = (keyboardEventObj: { key: string; code?: string; }) => {
         const displayWordsLen = displayWords.length;
         const { code, key } = keyboardEventObj;
         if (code === 'Space') {
@@ -59,7 +62,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         }
     };
 
-    useEffect(() => setDisplayWords([]), [word]);
+    useEffect(() => setDisplayWords(_words), [word]);
     useEffect(() => {
         if (char) {
             updateInput({ key: char as string, code: null });
@@ -68,7 +71,9 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
 
     return (
         <>
-            <InputHandler updateInput={updateInput} keyList={{ bannedList: BANNED_KEYS, allowedList: [] }}></InputHandler>
+            {mode === 'SPELLING' ?
+                <InputHandler updateInput={updateInput} keyList={{ bannedList: BANNED_KEYS, allowedList: [] }}></InputHandler>
+                : <InputHandler updateInput={updateInput} keyList={{ bannedList: [], allowedList: ['Space'] }}></InputHandler>}
             <div className="relative">
                 <div
                     lang="en"
@@ -80,12 +85,11 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                                     return (
                                         <span
                                             key={`${_index}_${w}_word`}
-                                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${
-                                                w.toLocaleLowerCase() ===
+                                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
                                                 displayWords[_index]
-                                                    ? SpellingStateClassNames.correct
-                                                    : SpellingStateClassNames.normal
-                                            }`}>
+                                                ? SpellingStateClassNames.correct
+                                                : SpellingStateClassNames.normal
+                                                }`}>
                                             {displayWords[_index]
                                                 ? displayWords[_index]
                                                 : '_'}
