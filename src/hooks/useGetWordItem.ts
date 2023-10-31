@@ -1,14 +1,16 @@
 import { WORDS_COMPLEX_EXPLANATION } from '../enum';
-import { OutBaseRelingo, WordsItem } from '../types';
+import { WordsItem } from '../types';
 import { fetchRequest } from '../utils';
 
-export const fetchWordDetailsByRelingos = async (w: WordsItem) => {
-    const response = await fetchRequest<
-        OutBaseRelingo[]
-    >({
+export const fetchWordDetails = async (w: WordsItem) => {
+    const response = await fetchRequest<unknown>({
         url: `${WORDS_COMPLEX_EXPLANATION}${w.word}`,
     });
-    // const explanations = explanationsResponse?.data?.entries.map(
-    //     e => e.explain,
-    // );
+    const ecDicWord = response['ec']['word'][0];
+    const blngDicWord = response['blng_sents_part']
+    const phonetic = ecDicWord['usphone'];
+    const explanations = ecDicWord['trs'][0]['tr'][0]['l']['i'];
+    const example = blngDicWord['sentence-pair'][0]['sentence'];
+    const example_zh = blngDicWord['sentence-pair'][0]['sentence-translation'];
+    return { phonetic, explanations, example, example_zh }
 };

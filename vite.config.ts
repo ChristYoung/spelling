@@ -34,6 +34,10 @@ export default defineConfig({
                 target: 'https://dict.youdao.com',
                 changeOrigin: true,
             },
+            '/jsonapi': {
+                target: 'https://dict.youdao.com',
+                changeOrigin: true,
+            }
         },
     },
 });

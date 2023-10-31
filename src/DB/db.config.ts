@@ -30,6 +30,11 @@ export const DBConfig = {
                     options: { unique: false },
                 },
                 {
+                    name: 'example_zh',
+                    keypath: 'example_zh',
+                    options: { unique: false }
+                },
+                {
                     name: 'phonetic', // 单词音标
                     keypath: 'phonetic',
                     options: { unique: false },
