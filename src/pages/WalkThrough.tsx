@@ -1,15 +1,14 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SpellCard } from '../components/SpellCard';
+import { SpellOperator } from '../components/SpellOperator';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import {
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
 } from '../store/wordsReducer/wordsSlice';
-import { SpellOperator } from '../components/SpellOperator';
-import { KeyBoard } from '../components/KeyBoard';
-import { useRef, useState } from 'react';
 import { WordsItem } from '../types';
-import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 
 export const WalkThrough: React.FC = () => {
     const dispatch = useDispatch();
@@ -22,8 +21,6 @@ export const WalkThrough: React.FC = () => {
         currentWordIndex + 1 >= wordsList.length
             ? 100
             : (currentWordIndex / wordsList.length) * 100;
-    const keyDownHandler = (char: string) => setChar(char);
-    const [char, setChar] = useState('');
     const isInWrongWordList = (word: WordsItem) =>
         wrongWords.current.some(wrongWord => wrongWord.word === word.word);
     const handleFinishSpell = (
@@ -70,7 +67,6 @@ export const WalkThrough: React.FC = () => {
                                         {...currentWord}
                                         mode="VIEW"
                                         onFinishSpell={handleFinishSpell}
-                                        char={char}
                                     />
                                 </div>
                             </div>
