@@ -29,6 +29,11 @@ export const DBConfig = {
                     keypath: 'example',
                     options: { unique: false },
                 },
+                {
+                    name: 'phonetic', // 单词音标
+                    keypath: 'phonetic',
+                    options: { unique: false },
+                },
             ],
         },
     ],

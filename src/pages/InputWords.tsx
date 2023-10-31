@@ -7,7 +7,7 @@ import {
     WordsItem,
 } from '../types';
 import { getDateString, fetchRequest } from '../utils';
-import { WORDS_EXPLANATION } from '../enum';
+import { WORDS_SIMPLE_EXPLANATION } from '../enum';
 // import Typo from 'typo-js';
 
 // const dictionary = new Typo('en_US');
@@ -38,7 +38,7 @@ export const InputWords: React.FC = () => {
             const explanationsResponse = await fetchRequest<
                 OutputYouDaoBaseResponse<OutputYouDaoExplanationData>
             >({
-                url: `${WORDS_EXPLANATION}${w.word}`,
+                url: `${WORDS_SIMPLE_EXPLANATION}${w.word}`,
             });
             const explanations = explanationsResponse?.data?.entries.map(
                 e => e.explain,
