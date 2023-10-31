@@ -70,7 +70,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                         return (
                             <span
                                 key={`${_index}_${w}_word`}
-                                className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
+                                className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
                                     displayWords[_index]
                                     ? SpellingStateClassNames.correct
                                     : SpellingStateClassNames.normal
@@ -89,7 +89,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                     return (
                         <span
                             key={`${_index}_${w}_word`}
-                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${SpellingStateClassNames.correct}`}>
+                            className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${SpellingStateClassNames.correct}`}>
                             {w}
                         </span>
                     );
