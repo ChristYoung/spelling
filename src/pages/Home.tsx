@@ -3,6 +3,7 @@ import {
     BsFillLightningChargeFill,
     BsSpellcheck,
 } from 'react-icons/bs';
+import { BiWalk } from "react-icons/bi";
 import { MenuCard, MenuCardProps } from '../components/MenuCard';
 
 const MenuList: MenuCardProps[] = [
@@ -23,6 +24,12 @@ const MenuList: MenuCardProps[] = [
         actionUrl: 'view',
         icon: <BsEyeFill></BsEyeFill>,
         desc: 'View all of the words.(Including familiar or not)',
+    },
+    {
+        title: 'WALKTHROUGH',
+        actionUrl: 'walk',
+        icon: <BiWalk></BiWalk>,
+        desc: 'Walk through all the words.(Including familiar or not)',
     },
 ];
 

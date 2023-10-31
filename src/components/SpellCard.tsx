@@ -28,6 +28,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
     const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
+    console.log('_DISPLAY_WORDS_INIT', _DISPLAY_WORDS_INIT);
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
@@ -61,6 +62,41 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         }
     };
 
+    const renderDisplayWords = () => {
+        if (mode === 'SPELLING') {
+            return <div className="flex items-center false justify-center select-none">
+                {word &&
+                    word.split('').map((w, _index) => {
+                        return (
+                            <span
+                                key={`${_index}_${w}_word`}
+                                className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
+                                    displayWords[_index]
+                                    ? SpellingStateClassNames.correct
+                                    : SpellingStateClassNames.normal
+                                    }`}>
+                                {displayWords[_index]
+                                    ? displayWords[_index]
+                                    : '_'}
+                            </span>
+                        );
+                    })}
+            </div>;
+        }
+        return <div className="flex items-center false justify-center select-none">
+            {displayWords?.length > 0 &&
+                displayWords.map((w, _index) => {
+                    return (
+                        <span
+                            key={`${_index}_${w}_word`}
+                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${SpellingStateClassNames.correct}`}>
+                            {w}
+                        </span>
+                    );
+                })}
+        </div>;
+    };
+
     useEffect(() => setDisplayWords(_DISPLAY_WORDS_INIT), [word]);
     useEffect(() => {
         if (char) {
@@ -79,24 +115,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                     className="flex flex-col items-center justify-center pb-1 pt-4">
                     {settingConfig.showPhonetic && <p className="mt-5 text-2xl">/{phonetic}/</p>}
                     <div className="tooltip-info mt-2 relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
-                        <div className="flex items-center false justify-center select-none">
-                            {word &&
-                                word.split('').map((w, _index) => {
-                                    return (
-                                        <span
-                                            key={`${_index}_${w}_word`}
-                                            className={`m-0 p-0 font-mono text-[48px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
-                                                displayWords[_index]
-                                                ? SpellingStateClassNames.correct
-                                                : SpellingStateClassNames.normal
-                                                }`}>
-                                            {displayWords[_index]
-                                                ? displayWords[_index]
-                                                : '_'}
-                                        </span>
-                                    );
-                                })}
-                        </div>
+                        {renderDisplayWords()}
                         {!settingConfig.onlyShowExplanationWhenSpelling ? (
                             <HornIcon
                                 word={word}

@@ -18,7 +18,7 @@ import { InputHandler } from './InputHandler';
 import { WordsItem } from '../types';
 
 export interface SpellOperatorProps {
-    onIgnoreWord: (word: WordsItem) => void
+    onIgnoreWord?: (word: WordsItem) => void
 }
 
 export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperatorProps) => {

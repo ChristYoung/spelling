@@ -4,6 +4,7 @@ import { InputWords } from '../pages/InputWords';
 import { RootLayout } from '../pages/RootLayout';
 import { SpellWords } from '../pages/SpellWords';
 import { ViewWords } from '../pages/ViewWords';
+import { WalkThrough } from '../pages/WalkThrough';
 
 const routerConfig = createHashRouter([
     {
@@ -22,6 +23,10 @@ const routerConfig = createHashRouter([
             {
                 path: 'spellWords',
                 element: <SpellWords />,
+            },
+            {
+                path: 'walk',
+                element: <WalkThrough />
             },
         ],
     },
