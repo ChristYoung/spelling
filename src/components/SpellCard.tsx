@@ -25,10 +25,9 @@ export const SpellingStateClassNames = {
 
 export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const { word, explanations, char, onFinishSpell, mode = 'SPELLING' } = props;
-    console.log('mode',mode)
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
-    const _words = mode === 'VIEW' ? word?.split('') : [];
+    const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
@@ -62,7 +61,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         }
     };
 
-    useEffect(() => setDisplayWords(_words), [word]);
+    useEffect(() => setDisplayWords(_DISPLAY_WORDS_INIT), [word]);
     useEffect(() => {
         if (char) {
             updateInput({ key: char as string, code: null });
