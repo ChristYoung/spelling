@@ -54,7 +54,7 @@ export const ViewWords: React.FC = () => {
                                     className={`flex w-full text-lg items-center justify-between`}>
                                     <div className="flex-1">
                                         <p className="mb-5 text-left text-3xl">
-                                            <em className="mr-5">{_index}.</em><span className="italic">{w.word}</span>
+                                            <em className="mr-5">{_index}.</em><span className="italic text-4xl font-bold">{w.word}</span>
                                         </p>
                                         <p className="text-2xl text-left">
                                             {w.explanations}

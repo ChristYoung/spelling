@@ -6,6 +6,8 @@ export type SettingState = {
     muteKeyBoardSound?: boolean; // 敲击键盘的时候不发出声音
     onlyShowExplanationWhenSpelling?: boolean; // 拼写的时候只展示中文释义
     randomOrder?: boolean; // 所选的单词随机排序
+    showExample?: boolean; // 是否展示例句
+    showPhonetic?: boolean; // 是否展示音标
 };
 
 export const getSettingSelector = (state: GlobalStoreType) => state.setting;
@@ -15,6 +17,8 @@ export const INIT_STATE: SettingState = {
     muteKeyBoardSound: false,
     randomOrder: false,
     onlyShowExplanationWhenSpelling: false,
+    showExample: true,
+    showPhonetic: true,
 };
 export const settingSlice = createSlice({
     name: 'settingSlice',

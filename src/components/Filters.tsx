@@ -22,18 +22,18 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
         }));
     };
     return (
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box w-11/12 max-w-5xl px-10">
             <h3 className="text-3xl">Filter what words you want to review222</h3>
             <form method="dialog">
                 <div className="py-4 text-2xl">
                     <ul className="mt-10">
-                        <li className="flex items-center">
+                        <li className="flex items-center justify-between px-10 mb-10">
                             <p>Rest original words:</p>
                             <div className="flex">
                                 <input type="checkbox" className="toggle toggle-md" name="resetOriginal" checked={formData.resetOriginal} onChange={handleChange} />
                             </div>
                         </li>
-                        <li className="flex items-center">
+                        <li className="flex items-center justify-between px-10 mb-10">
                             <p>Pick the range of the words:</p>
                             <div className="flex">
                                 <input
@@ -55,7 +55,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                 />
                             </div>
                         </li>
-                        <li className="flex items-center">
+                        <li className="flex items-center justify-between px-10 mb-10">
                             <p>Pick familiar type:</p>
                             <div className="flex items-center ml-5">
                                 <label
@@ -110,7 +110,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                 </label>
                             </div>
                         </li>
-                        <li className="flex items-center">
+                        <li className="flex items-center justify-between px-10 mb-10">
                             <p>Pick recent words:</p>
                             <div className="flex items-center ml-5">
                                 <label
