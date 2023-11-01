@@ -1,11 +1,11 @@
 import { createHashRouter } from 'react-router-dom';
+import { Governance } from '../pages/Governance';
 import { Home } from '../pages/Home';
 import { InputWords } from '../pages/InputWords';
 import { RootLayout } from '../pages/RootLayout';
 import { SpellWords } from '../pages/SpellWords';
 import { ViewWords } from '../pages/ViewWords';
 import { WalkThrough } from '../pages/WalkThrough';
-import { Governance } from '../pages/Governance';
 
 const routerConfig = createHashRouter([
     {

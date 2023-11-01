@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import {
     SettingState,
     getSettingSelector,
 } from '../store/settingReducer/settingSlice';
-import { useSelector } from 'react-redux';
 
 export interface SettingsProps {
     onConfirm: (params: SettingState) => void;

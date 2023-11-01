@@ -8,8 +8,8 @@ import {
 } from '../settingReducer/settingSlice';
 import {
     getAllWordsListInDBSelector,
-    restWordsList,
     getWordsListSelector,
+    restWordsList,
 } from './wordsSlice';
 
 // actions

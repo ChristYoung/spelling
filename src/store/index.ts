@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import wordsReducer, { WordsListState } from './wordsReducer/wordsSlice';
-import settingReducer, { SettingState } from './settingReducer/settingSlice';
 import createSagaMiddleware from 'redux-saga';
 import { fork } from 'redux-saga/effects';
+import settingReducer, { SettingState } from './settingReducer/settingSlice';
 import { watchWordsSaga } from './wordsReducer/wordsSaga';
+import wordsReducer, { WordsListState } from './wordsReducer/wordsSlice';
 
 export type GlobalStoreType = {
     wordsList: WordsListState;

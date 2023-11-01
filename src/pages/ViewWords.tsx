@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { HornIcon } from '../components/icons/HornIcon';
-import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
 import { useRef, useState } from 'react';
-import { WordsItem } from '../types';
-import { CiPickerEmpty } from 'react-icons/ci';
 import { BiSolidBadgeCheck } from 'react-icons/bi';
+import { CiPickerEmpty } from 'react-icons/ci';
+import { useDispatch, useSelector } from 'react-redux';
+import { HornIcon } from '../components/icons/HornIcon';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
+import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
+import { WordsItem } from '../types';
 
 export const ViewWords: React.FC = () => {
     const words = useSelector(getWordsListSelector);

@@ -41,5 +41,15 @@ module.exports = {
         'max-len': ['error', { code: 280 }],
         '@typescript-eslint/no-empty-function': ['off'], // 0表示不校验
         'jsx-quotes': ['error', 'prefer-double'], // 在jsx的html元素中优先使用双引号
+        // 'sort-imports': [
+        //     'error',
+        //     {
+        //         ignoreCase: false,
+        //         ignoreDeclarationSort: false,
+        //         ignoreMemberSort: false,
+        //         memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+        //         allowSeparatedGroups: false,
+        //     },
+        // ],
     },
 };

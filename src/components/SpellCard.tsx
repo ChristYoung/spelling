@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
+import { getSettingSelector } from '../store/settingReducer/settingSlice';
 import {
     changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
 } from '../store/wordsReducer/wordsSlice';
 import { WordsItem } from '../types';
+import { BANNED_KEYS } from '../utils';
 import { InputHandler } from './InputHandler';
 import { HornIcon } from './icons/HornIcon';
-import { getSettingSelector } from '../store/settingReducer/settingSlice';
-import { BANNED_KEYS } from '../utils';
 
 export interface SpellCardProps extends WordsItem {
     char?: string;

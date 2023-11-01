@@ -17,4 +17,9 @@ module.exports = {
     bracketSpacing: true,
     // 每个html元素的属性都换行展示
     singleAttributePerLine: true,
+    // 按字母顺序对import进行排序
+    importOrder: ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+    // importOrderSeparation: true,
+    importOrderSortSpecifiers: true,
+    plugins: ["@trivago/prettier-plugin-sort-imports"]
 };

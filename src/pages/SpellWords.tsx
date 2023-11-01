@@ -1,15 +1,15 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { KeyBoard } from '../components/KeyBoard';
 import { SpellCard } from '../components/SpellCard';
+import { SpellOperator } from '../components/SpellOperator';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import {
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
 } from '../store/wordsReducer/wordsSlice';
-import { SpellOperator } from '../components/SpellOperator';
-import { KeyBoard } from '../components/KeyBoard';
-import { useRef, useState } from 'react';
 import { WordsItem } from '../types';
-import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 
 export const SpellWords: React.FC = () => {
     const dispatch = useDispatch();

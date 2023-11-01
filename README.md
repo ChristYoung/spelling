@@ -32,6 +32,16 @@ If you are developing a production application, we recommend updating the config
  - // https://segmentfault.com/a/1190000041954694
  - // https://juejin.cn/post/7226345144995758135
 
+# 安装prettier-plugin-sort-imports来对import 进行sort排序
+ - yarn add prettier-plugin-sort-imports -D
+ - 在.prettierrc.cjs中添加如下配置
+   ```json
+   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+   "importOrderSeparation": true,
+   "importOrderSortSpecifiers": true,
+   "plugins": ["@trivago/prettier-plugin-sort-imports"]
+   ```
+
 
 # 使用Tailwind CSS 
 ## 安装

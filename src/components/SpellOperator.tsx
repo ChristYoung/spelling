@@ -4,7 +4,9 @@ import {
     AiOutlineHeart,
     AiTwotoneHeart,
 } from 'react-icons/ai';
+import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
+import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import {
     changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
@@ -12,10 +14,8 @@ import {
     getWordsListSelector,
     updateCurrentWordProperties,
 } from '../store/wordsReducer/wordsSlice';
-import { useIndexedDB } from 'react-indexed-db-hook';
-import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { InputHandler } from './InputHandler';
 import { WordsItem } from '../types';
+import { InputHandler } from './InputHandler';
 
 export interface SpellOperatorProps {
     onIgnoreWord?: (word: WordsItem) => void;

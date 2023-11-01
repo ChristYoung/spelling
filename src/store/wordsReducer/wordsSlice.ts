@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { WordsItem } from '../../types';
 import { GlobalStoreType } from '..';
+import { WordsItem } from '../../types';
 
 export type WordsListState = {
     words: WordsItem[];

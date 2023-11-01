@@ -4,6 +4,7 @@ import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { fetchWordDetails } from '../hooks';
 import { WordsItem } from '../types';
 import { getDateString } from '../utils';
+
 // import Typo from 'typo-js';
 
 // const dictionary = new Typo('en_US');
