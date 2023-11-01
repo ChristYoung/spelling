@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
 import {
@@ -28,7 +28,6 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
     const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
-    console.log('_DISPLAY_WORDS_INIT', _DISPLAY_WORDS_INIT);
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
@@ -61,6 +60,16 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
             }
         }
     };
+    const highLightExample = useCallback(() => {
+        const _index = example.toLowerCase().indexOf(word.toLowerCase());
+        if (_index < 0) {
+            return <>{example}</>
+        }
+        const before = example.slice(0, _index);
+        const after = example.slice(_index + word.length);
+        const highLight = example.slice(_index, _index + word.length);
+        return <>{before}<span className="text-orange-700 font-bold">{highLight}</span>{after}</>
+    }, [example, word])
 
     const renderDisplayWords = () => {
         if (mode === 'SPELLING') {
@@ -140,7 +149,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                     </span>
                 </div>
                 {settingConfig.showExample && <div className="examples py-4 text-3xl mb-10">
-                    <p className="my-3 italic">{example}</p>
+                    <p className="my-3 italic">{highLightExample()}</p>
                     <p className="text-2xl my-3 italic">{example_zh}</p>
                 </div>}
             </div>

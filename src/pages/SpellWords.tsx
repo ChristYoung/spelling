@@ -85,10 +85,10 @@ export const SpellWords: React.FC = () => {
                     className="modal">
                     <div className="modal-box w-11/12 max-w-5xl">
                         <div className="py-4 text-2xl">
-                            <p className="mt-10 text-3xl">
+                            { wrongWords?.current?.length > 0 && <p className="mt-10 text-3xl">
                                 The following words are spelled incorrectly,
                                 rewrite them?
-                            </p>
+                            </p> }
                             <div className="text-2xl mt-10 flex flex-wrap">
                                 {wrongWords.current.length > 0 ? (
                                     wrongWords.current.map(w => (
@@ -99,7 +99,7 @@ export const SpellWords: React.FC = () => {
                                         </span>
                                     ))
                                 ) : (
-                                    <div>Congratulations! No wrong words!</div>
+                                    <div className="w-full text-center">🎉🎉🎉 Congratulations! No wrong words! 🎉🎉🎉</div>
                                 )}
                             </div>
                         </div>
