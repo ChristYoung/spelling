@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useKeySound } from '../hooks/useKeySound';
 import { getSettingSelector } from '../store/settingReducer/settingSlice';
-import {
-    changeCurrentWordByIndex,
-    getCurrentWordIndexSelector,
-} from '../store/wordsReducer/wordsSlice';
 import { WordsItem } from '../types';
 import { BANNED_KEYS } from '../utils';
 import { InputHandler } from './InputHandler';
@@ -39,8 +35,6 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
     const [displayWords, setDisplayWords] = useState<string[]>([]);
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
-    const currentWordIndex = useSelector(getCurrentWordIndexSelector);
-    const dispatch = useDispatch();
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
         const displayWordsLen = displayWords.length;
         const { code, key } = keyboardEventObj;
@@ -57,7 +51,6 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 setDisplayWords(prev => [...prev, key]);
                 if (isLastLetter) {
                     console.log('the word you input was right!');
-                    dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
                     playCorrectSound();
                     onFinishSpell(props, 'CORRECT');
                     setDisplayWords([]);

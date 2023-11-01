@@ -5,6 +5,7 @@ import { SpellCard } from '../components/SpellCard';
 import { SpellOperator } from '../components/SpellOperator';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import {
+    changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
@@ -36,7 +37,10 @@ export const SpellWords: React.FC = () => {
             }
         } else {
             if (currentWordIndex === wordsList.length - 1) {
+                // 全部拼写完成
                 wrongWordsDialogRef.current.showModal();
+            } else {
+                dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
             }
         }
     };
