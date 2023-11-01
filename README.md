@@ -28,6 +28,9 @@ If you are developing a production application, we recommend updating the config
 
 # Vite创建React + Ts项目文档
  - https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project
+ - 如果项目的package.json中使用了 "type": "module", 则.eslint配置文件需要修改为.cjs文件的后缀名.
+ - // https://segmentfault.com/a/1190000041954694
+ - // https://juejin.cn/post/7226345144995758135
 
 
 # 使用Tailwind CSS 

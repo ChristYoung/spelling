@@ -32,7 +32,7 @@ export const DBConfig = {
                 {
                     name: 'example_zh',
                     keypath: 'example_zh',
-                    options: { unique: false }
+                    options: { unique: false },
                 },
                 {
                     name: 'phonetic', // 单词音标

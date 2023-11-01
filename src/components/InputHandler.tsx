@@ -3,7 +3,7 @@ import { isChineseSymbol, isLegal } from '../utils';
 
 export interface UpdateInputFn {
     updateInput: (letter: { key: string; code?: string }) => void;
-    keyList: { bannedList: string[], allowedList: string[] };
+    keyList: { bannedList: string[]; allowedList: string[] };
 }
 
 export function InputHandler(props: UpdateInputFn) {
@@ -17,7 +17,12 @@ export function InputHandler(props: UpdateInputFn) {
                 return;
             }
 
-            if (isLegal(key, { bannedList, allowedList }) && !e.altKey && !e.ctrlKey && !e.metaKey) {
+            if (
+                isLegal(key, { bannedList, allowedList }) &&
+                !e.altKey &&
+                !e.ctrlKey &&
+                !e.metaKey
+            ) {
                 updateInput({ key, code });
             }
         },

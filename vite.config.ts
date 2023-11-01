@@ -1,9 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import eslintPlugin from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [react()],
+    plugins: [
+        react(),
+        // 增加下面的配置项,这样在运行时就能检查eslint规范
+        eslintPlugin({
+            include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue'],
+        }),
+    ],
     base: process.env.NODE_ENV === 'production' ? 'spelling' : './',
     build: {
         rollupOptions: {
@@ -37,7 +44,7 @@ export default defineConfig({
             '/jsonapi': {
                 target: 'https://dict.youdao.com',
                 changeOrigin: true,
-            }
+            },
         },
     },
 });

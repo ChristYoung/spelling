@@ -1,4 +1,6 @@
 // https://juejin.cn/post/7226345144995758135
+// https://segmentfault.com/a/1190000041954694
+// 如果项目的package.json中使用了 "type": "module", 则.eslint配置文件需要修改为.cjs文件的后缀名.
 module.exports = {
     settings: {
         react: {
@@ -21,7 +23,7 @@ module.exports = {
         'plugin:@typescript-eslint/recommended', // 使用 @typescript-eslint 插件推荐的规则
         'plugin:prettier/recommended',
     ],
-    plugins: [ 'react' ], // 启用 react 插件
+    plugins: ['react'], // 启用 react 插件
     rules: {
         // 想在运行eslint时同时运行prettier，并且把prettier的错误作为eslint的错误来显示
         'prettier/prettier': [
@@ -36,8 +38,8 @@ module.exports = {
                 allowSingleExtends: true,
             },
         ],
-        'max-len': [ 'error', { code: 180 } ],
-        '@typescript-eslint/no-empty-function': [ 'off' ], // 0表示不校验
-        'jsx-quotes': [ 'error', 'prefer-double' ], // 在jsx的html元素中优先使用双引号
+        'max-len': ['error', { code: 280 }],
+        '@typescript-eslint/no-empty-function': ['off'], // 0表示不校验
+        'jsx-quotes': ['error', 'prefer-double'], // 在jsx的html元素中优先使用双引号
     },
 };

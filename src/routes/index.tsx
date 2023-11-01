@@ -27,11 +27,11 @@ const routerConfig = createHashRouter([
             },
             {
                 path: 'walk',
-                element: <WalkThrough />
+                element: <WalkThrough />,
             },
             {
                 path: 'governance',
-                element: <Governance />
+                element: <Governance />,
             },
         ],
     },

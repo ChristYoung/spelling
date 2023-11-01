@@ -17,13 +17,4 @@ module.exports = {
     bracketSpacing: true,
     // 每个html元素的属性都换行展示
     singleAttributePerLine: true,
-    resolveConfig: function (config, filePath) {
-        if (filePath.endsWith(".md") || filePath.endsWith(".mdx")) {
-            return {
-                parser: "markdown-it",
-                plugins: [ "prettier/markdown-it" ]
-            };
-        }
-        return config;
-    },
 };

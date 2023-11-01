@@ -24,7 +24,16 @@ export const SpellingStateClassNames = {
 };
 
 export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
-    const { word, explanations, char, onFinishSpell, phonetic, example, example_zh, mode = 'SPELLING' } = props;
+    const {
+        word,
+        explanations,
+        char,
+        onFinishSpell,
+        phonetic,
+        example,
+        example_zh,
+        mode = 'SPELLING',
+    } = props;
     const settingConfig = useSelector(getSettingSelector);
     const hornIconRef = useRef(null);
     const _DISPLAY_WORDS_INIT = mode === 'VIEW' ? word?.split('') : [];
@@ -32,7 +41,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const [playTypingSound, playWrongSound, playCorrectSound] = useKeySound();
     const currentWordIndex = useSelector(getCurrentWordIndexSelector);
     const dispatch = useDispatch();
-    const updateInput = (keyboardEventObj: { key: string; code?: string; }) => {
+    const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
         const displayWordsLen = displayWords.length;
         const { code, key } = keyboardEventObj;
         if (code === 'Space') {
@@ -63,47 +72,58 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const highLightExample = useCallback(() => {
         const _index = example.toLowerCase().indexOf(word.toLowerCase());
         if (_index < 0) {
-            return <>{example}</>
+            return <>{example}</>;
         }
         const before = example.slice(0, _index);
         const after = example.slice(_index + word.length);
         const highLight = example.slice(_index, _index + word.length);
-        return <>{before}<span className="text-orange-700 font-bold">{highLight}</span>{after}</>
-    }, [example, word])
+        return (
+            <>
+                {before}
+                <span className="text-orange-700 font-bold">{highLight}</span>
+                {after}
+            </>
+        );
+    }, [example, word]);
 
     const renderDisplayWords = () => {
         if (mode === 'SPELLING') {
-            return <div className="flex items-center false justify-center select-none">
-                {word &&
-                    word.split('').map((w, _index) => {
+            return (
+                <div className="flex items-center false justify-center select-none">
+                    {word &&
+                        word.split('').map((w, _index) => {
+                            return (
+                                <span
+                                    key={`${_index}_${w}_word`}
+                                    className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${
+                                        w.toLocaleLowerCase() ===
+                                        displayWords[_index]
+                                            ? SpellingStateClassNames.correct
+                                            : SpellingStateClassNames.normal
+                                    }`}>
+                                    {displayWords[_index]
+                                        ? displayWords[_index]
+                                        : '_'}
+                                </span>
+                            );
+                        })}
+                </div>
+            );
+        }
+        return (
+            <div className="flex items-center false justify-center select-none">
+                {displayWords?.length > 0 &&
+                    displayWords.map((w, _index) => {
                         return (
                             <span
                                 key={`${_index}_${w}_word`}
-                                className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${w.toLocaleLowerCase() ===
-                                    displayWords[_index]
-                                    ? SpellingStateClassNames.correct
-                                    : SpellingStateClassNames.normal
-                                    }`}>
-                                {displayWords[_index]
-                                    ? displayWords[_index]
-                                    : '_'}
+                                className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${SpellingStateClassNames.correct}`}>
+                                {w}
                             </span>
                         );
                     })}
-            </div>;
-        }
-        return <div className="flex items-center false justify-center select-none">
-            {displayWords?.length > 0 &&
-                displayWords.map((w, _index) => {
-                    return (
-                        <span
-                            key={`${_index}_${w}_word`}
-                            className={`m-0 p-0 font-mono text-[50px] px-1 font-normal dark:text-gray-50 duration-0 dark:text-opacity-80 ${SpellingStateClassNames.correct}`}>
-                            {w}
-                        </span>
-                    );
-                })}
-        </div>;
+            </div>
+        );
     };
 
     useEffect(() => setDisplayWords(_DISPLAY_WORDS_INIT), [word]);
@@ -115,14 +135,28 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
 
     return (
         <>
-            {mode === 'SPELLING' ?
-                <InputHandler updateInput={updateInput} keyList={{ bannedList: BANNED_KEYS, allowedList: [] }}></InputHandler>
-                : <InputHandler updateInput={updateInput} keyList={{ bannedList: [], allowedList: ['Space'] }}></InputHandler>}
+            {mode === 'SPELLING' ? (
+                <InputHandler
+                    updateInput={updateInput}
+                    keyList={{
+                        bannedList: BANNED_KEYS,
+                        allowedList: [],
+                    }}></InputHandler>
+            ) : (
+                <InputHandler
+                    updateInput={updateInput}
+                    keyList={{
+                        bannedList: [],
+                        allowedList: ['Space'],
+                    }}></InputHandler>
+            )}
             <div className="relative">
                 <div
                     lang="en"
                     className="flex flex-col items-center justify-center pb-1 pt-4">
-                    {settingConfig.showPhonetic && <p className="mt-5 text-2xl">/{phonetic}/</p>}
+                    {settingConfig.showPhonetic && (
+                        <p className="mt-5 text-2xl">/{phonetic}/</p>
+                    )}
                     <div className="tooltip-info mt-2 relative w-fit bg-transparent p-0 leading-normal shadow-none dark:bg-transparent tooltip">
                         {renderDisplayWords()}
                         {!settingConfig.onlyShowExplanationWhenSpelling ? (
@@ -148,10 +182,12 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                             : '--'}
                     </span>
                 </div>
-                {settingConfig.showExample && <div className="examples py-4 text-3xl mb-10">
-                    <p className="my-3 italic">{highLightExample()}</p>
-                    <p className="text-2xl my-3 italic">{example_zh}</p>
-                </div>}
+                {settingConfig.showExample && (
+                    <div className="examples py-4 text-3xl mb-10">
+                        <p className="my-3 italic">{highLightExample()}</p>
+                        <p className="text-2xl my-3 italic">{example_zh}</p>
+                    </div>
+                )}
             </div>
         </>
     );

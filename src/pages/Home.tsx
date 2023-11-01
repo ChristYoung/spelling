@@ -3,7 +3,7 @@ import {
     BsFillLightningChargeFill,
     BsSpellcheck,
 } from 'react-icons/bs';
-import { BiWalk } from "react-icons/bi";
+import { BiWalk } from 'react-icons/bi';
 import { MenuCard, MenuCardProps } from '../components/MenuCard';
 
 const MenuList: MenuCardProps[] = [

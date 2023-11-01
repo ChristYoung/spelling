@@ -18,10 +18,12 @@ import { InputHandler } from './InputHandler';
 import { WordsItem } from '../types';
 
 export interface SpellOperatorProps {
-    onIgnoreWord?: (word: WordsItem) => void
+    onIgnoreWord?: (word: WordsItem) => void;
 }
 
-export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperatorProps) => {
+export const SpellOperator: React.FC<SpellOperatorProps> = (
+    props: SpellOperatorProps,
+) => {
     const dispatch = useDispatch();
     const { onIgnoreWord } = props;
     const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
@@ -30,17 +32,13 @@ export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperator
     const wordsList = useSelector(getWordsListSelector);
     const switchNext = () => {
         if (currentWordIndex + 1 < wordsList.length) {
-            dispatch(
-                changeCurrentWordByIndex(currentWordIndex + 1),
-            );
+            dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
             onIgnoreWord(currentWord);
         }
     };
     const switchPrev = () => {
         if (currentWordIndex > 0) {
-            dispatch(
-                changeCurrentWordByIndex(currentWordIndex - 1),
-            );
+            dispatch(changeCurrentWordByIndex(currentWordIndex - 1));
             onIgnoreWord(currentWord);
         }
     };
@@ -108,7 +106,12 @@ export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperator
                     <AiOutlineArrowRight style={{ display: 'inline' }} />
                 </span>
             </div>
-            <InputHandler updateInput={updateInput} keyList={{ bannedList: [], allowedList: ['ArrowLeft', 'ArrowRight'] }}></InputHandler>
+            <InputHandler
+                updateInput={updateInput}
+                keyList={{
+                    bannedList: [],
+                    allowedList: ['ArrowLeft', 'ArrowRight'],
+                }}></InputHandler>
         </div>
     );
 };

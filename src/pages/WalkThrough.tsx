@@ -39,7 +39,10 @@ export const WalkThrough: React.FC = () => {
     };
     const confirmBtnClicked = () => {
         if (wrongWords.current.length > 0) {
-            dispatch({ type: WORDS_SAGA.RESET_WORDS, payload: wrongWords.current });
+            dispatch({
+                type: WORDS_SAGA.RESET_WORDS,
+                payload: wrongWords.current,
+            });
         } else {
             dispatch({ type: WORDS_SAGA.RESET_ORIGINAL_WORDS });
         }
@@ -59,7 +62,12 @@ export const WalkThrough: React.FC = () => {
                                     max="100"></progress>
                             </div>
                             <div className="text-2xl">
-                                 <span>{(currentWordIndex + 1) + '/' + wordsList.length}</span>
+                                <span>
+                                    {currentWordIndex +
+                                        1 +
+                                        '/' +
+                                        wordsList.length}
+                                </span>
                             </div>
                             <div className="container flex flex-grow flex-col items-center justify-center">
                                 <div className="relative flex w-full justify-center">
