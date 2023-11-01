@@ -6,7 +6,11 @@ import {
     SettingState,
     getSettingSelector,
 } from '../settingReducer/settingSlice';
-import { getAllWordsListInDBSelector, restWordsList, getWordsListSelector } from './wordsSlice';
+import {
+    getAllWordsListInDBSelector,
+    restWordsList,
+    getWordsListSelector,
+} from './wordsSlice';
 
 // actions
 export const WORDS_SAGA = {
@@ -18,7 +22,8 @@ export const WORDS_SAGA = {
 
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     const originalWordsList = yield select(getAllWordsListInDBSelector);
-    const { startRange, endRange, familiarFilter, timeFilter, resetOriginal } = action.payload;
+    const { startRange, endRange, familiarFilter, timeFilter, resetOriginal } =
+        action.payload;
 
     // reset all words
     if (resetOriginal) {
@@ -39,7 +44,9 @@ export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
     );
 
     // 2. filter by recent time.
-    const filterWordByTime = (filterWords as WordsItem[]).filter(w => w.created_timestamp >= getXDaysAgoOrAfterTime(timeFilter));
+    const filterWordByTime = (filterWords as WordsItem[]).filter(
+        w => w.created_timestamp >= getXDaysAgoOrAfterTime(timeFilter),
+    );
     yield put({ type: WORDS_SAGA.RESET_WORDS, payload: filterWordByTime });
 }
 
@@ -57,11 +64,16 @@ export function* resetWordsSaga(action: PayloadAction<WordsItem[]>) {
     yield put(restWordsList(newRangeWords));
 }
 
-export function* changeWordsOrderSaga(action: PayloadAction<{ orderType: 'RANDOM' | 'ASCENDING' }>) {
+export function* changeWordsOrderSaga(
+    action: PayloadAction<{ orderType: 'RANDOM' | 'ASCENDING' }>,
+) {
     const words = yield select(getWordsListSelector);
     const orderType = action.payload.orderType;
     // we need to use [...words] to sort in order to avoid `TypeError: Cannot assign to read only property '0' of object '[object Array]' in typescript` error.
-    const newRangeWords = orderType === 'RANDOM' ? shuffleArray(words) : [...words].sort((a, b) => a.id - b.id);
+    const newRangeWords =
+        orderType === 'RANDOM'
+            ? shuffleArray(words)
+            : [...words].sort((a, b) => a.id - b.id);
     yield put(restWordsList(newRangeWords));
 }
 
