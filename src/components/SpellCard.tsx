@@ -63,7 +63,9 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         }
     };
     const highLightExample = useCallback(() => {
-        const _index = example.toLowerCase().indexOf(word.toLowerCase());
+        const _index = example
+            ? example.toLowerCase().indexOf(word.toLowerCase())
+            : -1;
         if (_index < 0) {
             return <>{example}</>;
         }
