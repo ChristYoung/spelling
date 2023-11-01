@@ -5,6 +5,7 @@ import { RootLayout } from '../pages/RootLayout';
 import { SpellWords } from '../pages/SpellWords';
 import { ViewWords } from '../pages/ViewWords';
 import { WalkThrough } from '../pages/WalkThrough';
+import { Governance } from '../pages/Governance';
 
 const routerConfig = createHashRouter([
     {
@@ -27,6 +28,10 @@ const routerConfig = createHashRouter([
             {
                 path: 'walk',
                 element: <WalkThrough />
+            },
+            {
+                path: 'governance',
+                element: <Governance />
             },
         ],
     },
