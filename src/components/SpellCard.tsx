@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import { useKeySound } from '../hooks/useKeySound';
 import { getSettingSelector } from '../store/settingReducer/settingSlice';
 import { WordsItem } from '../types';

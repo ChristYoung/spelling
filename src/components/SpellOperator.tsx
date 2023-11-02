@@ -6,6 +6,7 @@ import {
 } from 'react-icons/ai';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import {
     changeCurrentWordByIndex,

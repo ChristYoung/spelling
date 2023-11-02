@@ -19,10 +19,12 @@ export interface OutputYouDaoBaseResponse<T> {
 }
 
 export interface OutputYouDaoExplanationData {
-    entries: Array<{
-        explain: string;
-        entry?: string;
-    }>;
+    entries: Array<OutPutEntriesItem>;
+}
+
+export interface OutPutEntriesItem {
+    explain: string;
+    entry?: string;
 }
 
 export * from './filter.type';
