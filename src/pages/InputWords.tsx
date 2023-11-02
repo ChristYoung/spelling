@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
+
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { fetchWordDetails } from '../hooks';
 import { WordsItem } from '../types';
