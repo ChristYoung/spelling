@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+
 import {
     SettingState,
     getSettingSelector,
@@ -85,6 +86,23 @@ export const Settings: React.FC<SettingsProps> = (props: SettingsProps) => {
                                     checked={
                                         configs.onlyShowExplanationWhenSpelling
                                     }
+                                />
+                            </div>
+                        </li>
+                        <li className="flex items-center mb-10 justify-between px-10">
+                            <p>StrictSpelling:</p>
+                            <div className="flex items-center ml-5">
+                                <input
+                                    type="checkbox"
+                                    className="toggle toggle-md"
+                                    onChange={() =>
+                                        setConfigs({
+                                            ...configs,
+                                            strictSpelling:
+                                                !configs.strictSpelling,
+                                        })
+                                    }
+                                    checked={configs.strictSpelling}
                                 />
                             </div>
                         </li>

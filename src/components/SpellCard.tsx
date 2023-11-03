@@ -59,7 +59,9 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
             } else {
                 playWrongSound();
                 setDisplayWords([]);
-                onFinishSpell(props, 'WRONG');
+                if (settingConfig.strictSpelling) {
+                    onFinishSpell(props, 'WRONG');
+                }
             }
         }
     };
