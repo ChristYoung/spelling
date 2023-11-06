@@ -1,3 +1,3 @@
 export const Governance: React.FC = () => {
-    return <div className="__Governance">Governance component works!</div>;
+    return <div className="__Governance"></div>;
 };

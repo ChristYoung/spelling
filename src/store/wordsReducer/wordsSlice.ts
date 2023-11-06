@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { GlobalStoreType } from '..';
 import { WordsItem } from '../../types';
 
