@@ -39,12 +39,12 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
         const displayWordsLen = displayWords.length;
         const { code, key } = keyboardEventObj;
-        console.log('keyboardEventObj', keyboardEventObj);
         if (code === 'Space') {
             if (!settingConfig.onlyShowExplanationWhenSpelling) {
                 hornIconRef.current.play();
             }
         } else {
+            if (!word[displayWordsLen]) return;
             const isCorrect = key === word[displayWordsLen].toLowerCase();
             const isLastLetter = displayWordsLen === word.length - 1;
             if (displayWords.length === word.length) return;
@@ -136,17 +136,10 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         <>
             <InputHandler
                 updateInput={updateInput}
-                keyList={
-                    mode === 'SPELLING'
-                        ? {
-                              bannedList: BANNED_KEYS,
-                              allowedList: [],
-                          }
-                        : {
-                              bannedList: [],
-                              allowedList: ['Space'],
-                          }
-                }></InputHandler>
+                keyList={{
+                    bannedList: BANNED_KEYS,
+                    allowedList: [],
+                }}></InputHandler>
             <div className="relative">
                 <div
                     lang="en"
