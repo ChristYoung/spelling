@@ -6,6 +6,7 @@ import { SpellCard } from '../components/SpellCard';
 import { SpellOperator } from '../components/SpellOperator';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import {
+    changeCurrentIndex,
     changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
@@ -51,6 +52,8 @@ export const SpellWords: React.FC = () => {
                 type: WORDS_SAGA.RESET_WORDS,
                 payload: wrongWords.current,
             });
+        } else {
+            dispatch(changeCurrentIndex(0));
         }
         wrongWords.current = [];
         wrongWordsDialogRef.current.close();

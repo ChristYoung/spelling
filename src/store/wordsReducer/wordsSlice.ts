@@ -50,6 +50,18 @@ export const wordsSlice = createSlice({
                 currentWordId: words?.length > 0 ? words[0].id : null,
             };
         },
+        changeCurrentIndex: (
+            state: WordsListState,
+            action: PayloadAction<number>,
+        ) => {
+            const _index = action.payload;
+            return {
+                ...state,
+                currentWordIndex: _index,
+                currentWordId: state.words[_index]?.id,
+                currentWord: state.words[_index],
+            };
+        },
         changeCurrentWordByIndex: (
             state: WordsListState,
             action: PayloadAction<number>,
@@ -78,5 +90,6 @@ export const {
     changeCurrentWordByIndex,
     resetAllWordsListInDB,
     updateCurrentWordProperties,
+    changeCurrentIndex,
 } = wordsSlice.actions;
 export default wordsSlice.reducer;
