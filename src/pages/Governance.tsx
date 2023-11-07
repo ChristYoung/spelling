@@ -1,10 +1,18 @@
+import { useIndexedDB } from 'react-indexed-db-hook';
 import { useSelector } from 'react-redux';
 
+import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { HornIcon } from '../components/icons/HornIcon';
 import { getAllWordsListInDBSelector } from '../store/wordsReducer/wordsSlice';
+import { WordsItem } from '../types';
 
 export const Governance: React.FC = () => {
     const wordsList = useSelector(getAllWordsListInDBSelector);
+    const { deleteRecord } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
+
+    const onDeleteWord = (w: WordsItem) => {
+        deleteRecord(w.id).then(e => console.log(e));
+    };
 
     return (
         <div className="__Governance">
@@ -22,7 +30,7 @@ export const Governance: React.FC = () => {
                         {wordsList?.length > 0 &&
                             wordsList.map(w => {
                                 return (
-                                    <tr>
+                                    <tr key={`${w.id}_${w.word}`}>
                                         <td className="text-2xl">{w.id}</td>
                                         <td className="text-2xl">{w.word}</td>
                                         <td className="text-2xl flex items-center">
@@ -40,7 +48,9 @@ export const Governance: React.FC = () => {
                                                 Change Example
                                             </a>{' '}
                                             |{' '}
-                                            <a className="link link-error">
+                                            <a
+                                                className="link link-error"
+                                                onClick={() => onDeleteWord(w)}>
                                                 Delete
                                             </a>
                                         </td>
