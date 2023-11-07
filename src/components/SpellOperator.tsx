@@ -34,13 +34,13 @@ export const SpellOperator: React.FC<SpellOperatorProps> = (
     const switchNext = () => {
         if (currentWordIndex + 1 < wordsList.length) {
             dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
-            onIgnoreWord(currentWord);
+            onIgnoreWord && onIgnoreWord(currentWord);
         }
     };
     const switchPrev = () => {
         if (currentWordIndex > 0) {
             dispatch(changeCurrentWordByIndex(currentWordIndex - 1));
-            onIgnoreWord(currentWord);
+            onIgnoreWord && onIgnoreWord(currentWord);
         }
     };
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {

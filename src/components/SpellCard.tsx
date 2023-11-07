@@ -39,6 +39,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
         const displayWordsLen = displayWords.length;
         const { code, key } = keyboardEventObj;
+        console.log('keyboardEventObj', keyboardEventObj);
         if (code === 'Space') {
             if (!settingConfig.onlyShowExplanationWhenSpelling) {
                 hornIconRef.current.play();
@@ -53,14 +54,14 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 if (isLastLetter) {
                     console.log('the word you input was right!');
                     playCorrectSound();
-                    onFinishSpell(props, 'CORRECT');
+                    onFinishSpell && onFinishSpell(props, 'CORRECT');
                     setDisplayWords([]);
                 }
             } else {
                 playWrongSound();
                 setDisplayWords([]);
                 if (settingConfig.strictSpelling) {
-                    onFinishSpell(props, 'WRONG');
+                    onFinishSpell && onFinishSpell(props, 'WRONG');
                 }
             }
         }
@@ -133,21 +134,19 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
 
     return (
         <>
-            {mode === 'SPELLING' ? (
-                <InputHandler
-                    updateInput={updateInput}
-                    keyList={{
-                        bannedList: BANNED_KEYS,
-                        allowedList: [],
-                    }}></InputHandler>
-            ) : (
-                <InputHandler
-                    updateInput={updateInput}
-                    keyList={{
-                        bannedList: [],
-                        allowedList: ['Space'],
-                    }}></InputHandler>
-            )}
+            <InputHandler
+                updateInput={updateInput}
+                keyList={
+                    mode === 'SPELLING'
+                        ? {
+                              bannedList: BANNED_KEYS,
+                              allowedList: [],
+                          }
+                        : {
+                              bannedList: [],
+                              allowedList: ['Space'],
+                          }
+                }></InputHandler>
             <div className="relative">
                 <div
                     lang="en"
