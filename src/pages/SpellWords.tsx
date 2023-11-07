@@ -51,8 +51,6 @@ export const SpellWords: React.FC = () => {
                 type: WORDS_SAGA.RESET_WORDS,
                 payload: wrongWords.current,
             });
-        } else {
-            dispatch({ type: WORDS_SAGA.RESET_ORIGINAL_WORDS });
         }
         wrongWords.current = [];
         wrongWordsDialogRef.current.close();
