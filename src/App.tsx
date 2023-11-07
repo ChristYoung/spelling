@@ -3,6 +3,7 @@ import { initDB, useIndexedDB } from 'react-indexed-db-hook';
 import { IndexedDB } from 'react-indexed-db-hook';
 import { useDispatch } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
+
 import './App.css';
 import { DBConfig } from './DB/db.config';
 import { DB_WORDS_TABLE_NAME } from './DB/db.enum';

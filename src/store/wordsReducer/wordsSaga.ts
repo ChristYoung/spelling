@@ -16,9 +16,9 @@ import {
 // actions
 export const WORDS_SAGA = {
     FILTER_WORDS: 'FILTER_WORDS',
-    RESET_ORIGINAL_WORDS: 'RESET_ORIGINAL_WORDS',
-    RESET_WORDS: 'RESET_WORDS',
-    RESET_WORDS_ORDER: 'RESET_WORDS_ORDER',
+    RESET_ORIGINAL_WORDS: 'RESET_ORIGINAL_WORDS', // 重置为数据库中的words list
+    RESET_WORDS: 'RESET_WORDS', // 设置words list
+    RESET_WORDS_ORDER: 'RESET_WORDS_ORDER', // 重置单词排序
 };
 
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {

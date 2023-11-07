@@ -1,4 +1,5 @@
 import { createHashRouter } from 'react-router-dom';
+
 import { Governance } from '../pages/Governance';
 import { Home } from '../pages/Home';
 import { InputWords } from '../pages/InputWords';
