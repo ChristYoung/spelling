@@ -5,6 +5,7 @@
         "immer",
         "jsonapi",
         "jsonversion",
+        "Nginxproxymanager",
         "Relingos",
         "sents",
         "trivago",

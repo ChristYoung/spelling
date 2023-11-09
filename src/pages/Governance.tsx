@@ -14,8 +14,22 @@ export const Governance: React.FC = () => {
         deleteRecord(w.id).then(e => console.log(e));
     };
 
+    // const changeExample = (w: WordsItem) => {};
+
     return (
         <div className="__Governance">
+            <div className="view_bar flex">
+                <button
+                    className="btn btn-info mb-10 text-xl"
+                    onClick={() => {
+                        const wordsString = wordsList
+                            .map(w => w.word)
+                            .join('\n');
+                        console.log(wordsString);
+                    }}>
+                    Export in Console panel
+                </button>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table table-lg">
                     <thead className="text-3xl">
@@ -32,7 +46,9 @@ export const Governance: React.FC = () => {
                                 return (
                                     <tr key={`${w.id}_${w.word}`}>
                                         <td className="text-2xl">{w.id}</td>
-                                        <td className="text-2xl">{w.word}</td>
+                                        <td className="text-3xl italic">
+                                            {w.word}
+                                        </td>
                                         <td className="text-2xl flex items-center">
                                             <span>/{w.phonetic}/</span>
                                             <span className="ml-16">
