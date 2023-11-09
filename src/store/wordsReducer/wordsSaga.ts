@@ -10,6 +10,7 @@ import {
 import {
     getAllWordsListInDBSelector,
     getWordsListSelector,
+    resetAllWordsListInDB,
     restWordsList,
 } from './wordsSlice';
 
@@ -19,6 +20,7 @@ export const WORDS_SAGA = {
     RESET_ORIGINAL_WORDS: 'RESET_ORIGINAL_WORDS', // 重置为数据库中的words list
     RESET_WORDS: 'RESET_WORDS', // 设置words list
     RESET_WORDS_ORDER: 'RESET_WORDS_ORDER', // 重置单词排序
+    CLEAR_WORDS: 'CLEAR_WORDS', // 清空数据库中所有的单词
 };
 
 export function* filterWordsSaga(action: PayloadAction<FilterWordsType>) {
@@ -78,9 +80,15 @@ export function* changeWordsOrderSaga(
     yield put(restWordsList(newRangeWords));
 }
 
+export function* clearAllWordsSaga() {
+    yield put({ type: WORDS_SAGA.RESET_WORDS, payload: [] });
+    yield put(resetAllWordsListInDB([]));
+}
+
 export function* watchWordsSaga() {
     yield takeEvery(WORDS_SAGA.FILTER_WORDS, filterWordsSaga);
     yield takeEvery(WORDS_SAGA.RESET_ORIGINAL_WORDS, resetOriginalWordsSaga);
     yield takeEvery(WORDS_SAGA.RESET_WORDS, resetWordsSaga);
     yield takeEvery(WORDS_SAGA.RESET_WORDS_ORDER, changeWordsOrderSaga);
+    yield takeEvery(WORDS_SAGA.CLEAR_WORDS, clearAllWordsSaga);
 }
