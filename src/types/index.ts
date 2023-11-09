@@ -3,10 +3,14 @@ export interface WordsItem {
     familiar: boolean;
     created_timestamp?: number;
     explanations?: string[]; // 释义
-    example?: string; // 例句
-    example_zh?: string;
+    examples?: ExampleItem[];
     id?: number;
     phonetic?: string; // 音标
+}
+
+export interface ExampleItem {
+    zh: string;
+    en: string;
 }
 
 export interface OutputYouDaoBaseResponse<T> {

@@ -27,8 +27,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         char,
         onFinishSpell,
         phonetic,
-        example,
-        example_zh,
+        examples,
         mode = 'SPELLING',
     } = props;
     const settingConfig = useSelector(getSettingSelector);
@@ -67,6 +66,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
         }
     };
     const highLightExample = useCallback(() => {
+        const example = examples?.length > 0 ? examples[0].en : null;
         const _index = example
             ? example.toLowerCase().indexOf(word.toLowerCase())
             : -1;
@@ -83,7 +83,7 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 {after}
             </>
         );
-    }, [example, word]);
+    }, [examples, word]);
 
     const renderDisplayWords = () => {
         if (mode === 'SPELLING') {
@@ -175,7 +175,11 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 {settingConfig.showExample && (
                     <div className="examples py-4 text-3xl mb-10">
                         <p className="my-3 italic">{highLightExample()}</p>
-                        <p className="text-2xl my-3 italic">{example_zh}</p>
+                        {examples?.length > 0 && (
+                            <p className="text-2xl my-3 italic">
+                                {examples[0].zh}
+                            </p>
+                        )}
                     </div>
                 )}
             </div>

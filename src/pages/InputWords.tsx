@@ -37,9 +37,8 @@ export const InputWords: React.FC = () => {
             const { phonetic, example, explanations, example_zh } =
                 await fetchWordDetails(w);
             w.phonetic = phonetic;
-            w.example = example;
+            w.examples = [{ en: example, zh: example_zh }];
             w.explanations = explanations;
-            w.example_zh = example_zh;
         }
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();
