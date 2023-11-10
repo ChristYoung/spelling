@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +10,9 @@ import { WordsItem } from '../types';
 
 export const Governance: React.FC = () => {
     const wordsList = useSelector(getAllWordsListInDBSelector);
+    const enRef = useRef<HTMLTextAreaElement>(null);
+    const zhRef = useRef<HTMLTextAreaElement>(null);
+    const drawerOpenCheckBoxRef = useRef<HTMLInputElement>(null);
     const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
     const [selectedWordItem, setSelectedWordItem] = useState<WordsItem>(null);
     const dispatch = useDispatch();
@@ -32,10 +35,38 @@ export const Governance: React.FC = () => {
         });
     };
 
+    const addExample = () => {
+        const en = (enRef.current as HTMLTextAreaElement).value;
+        const zh = (zhRef.current as HTMLTextAreaElement).value;
+        update({
+            ...selectedWordItem,
+            examples: [...selectedWordItem.examples, { en, zh }],
+        }).then(() => {
+            setSelectedWordItem({
+                ...selectedWordItem,
+                examples: [...selectedWordItem.examples, { en, zh }],
+            });
+        });
+    };
+
+    const onCloseDrawer = () => {
+        setSelectedWordItem(null);
+    };
+
     return (
         <div className="__Governance drawer drawer-end">
             <input
                 id="my-drawer"
+                ref={drawerOpenCheckBoxRef}
+                onChange={() => {
+                    const drawerRefChecked =
+                        drawerOpenCheckBoxRef.current.checked;
+                    if (!drawerRefChecked) {
+                        onCloseDrawer();
+                        enRef.current.value = '';
+                        zhRef.current.value = '';
+                    }
+                }}
                 type="checkbox"
                 className="drawer-toggle"
             />
@@ -170,13 +201,17 @@ export const Governance: React.FC = () => {
                             <div className="mt-10">
                                 <div className="input_box">
                                     <textarea
+                                        ref={enRef}
                                         className="textarea textarea-bordered block w-full text-xl mb-10"
                                         placeholder="Input the English Example"></textarea>
                                     <textarea
+                                        ref={zhRef}
                                         className="textarea textarea-bordered block w-full text-xl"
                                         placeholder="Input the Chinese Example"></textarea>
                                 </div>
-                                <button className="btn btn-outline btn-success text-xl mt-10">
+                                <button
+                                    className="btn btn-outline btn-success text-xl mt-10"
+                                    onClick={addExample}>
                                     Add Examples
                                 </button>
                             </div>
