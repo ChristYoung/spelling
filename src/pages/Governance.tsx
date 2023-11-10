@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,6 +10,8 @@ import { WordsItem } from '../types';
 
 export const Governance: React.FC = () => {
     const wordsList = useSelector(getAllWordsListInDBSelector);
+    const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
+    const [selectedWordItem, setSelectedWordItem] = useState<WordsItem>(null);
     const dispatch = useDispatch();
     const { deleteRecord, clear } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
 
@@ -16,10 +19,26 @@ export const Governance: React.FC = () => {
         deleteRecord(w.id).then(e => console.log(e));
     };
 
-    // const changeExample = (w: WordsItem) => {};
+    const openDetailsDrawer = (w: WordsItem) => {
+        setSelectedWordItem(w);
+    };
+
+    const removeExample = (_index: number) => {
+        const currentExamples = [...selectedWordItem.examples];
+        const newExamples = currentExamples.filter((_, i) => i !== _index);
+        // TODO: 删除单词后需要刷新下页面, 待研究如何解决, 可能将数据库的更新操作方到hooks中去, 目前暂时使用刷新的方式.
+        update({ ...selectedWordItem, examples: newExamples }).then(() => {
+            setSelectedWordItem({ ...selectedWordItem, examples: newExamples });
+        });
+    };
 
     return (
-        <div className="__Governance">
+        <div className="__Governance drawer drawer-end">
+            <input
+                id="my-drawer"
+                type="checkbox"
+                className="drawer-toggle"
+            />
             <div className="view_bar flex">
                 <button
                     className="btn btn-info mb-10 text-xl mx-4"
@@ -74,13 +93,14 @@ export const Governance: React.FC = () => {
                                             </span>
                                         </td>
                                         <td className="text-2xl">
-                                            <a className="link link-neutral">
+                                            <label
+                                                htmlFor="my-drawer"
+                                                className="link link-neutral drawer-button"
+                                                onClick={() =>
+                                                    openDetailsDrawer(w)
+                                                }>
                                                 View Details
-                                            </a>{' '}
-                                            |{' '}
-                                            <a className="link link-neutral">
-                                                Change Example
-                                            </a>{' '}
+                                            </label>
                                             |{' '}
                                             <a
                                                 className="link link-error"
@@ -93,6 +113,76 @@ export const Governance: React.FC = () => {
                             })}
                     </tbody>
                 </table>
+            </div>
+
+            {/* drawer Content */}
+            <div className="drawer-side">
+                <label
+                    htmlFor="my-drawer"
+                    aria-label="close sidebar"
+                    className="drawer-overlay"></label>
+                {selectedWordItem && (
+                    <div className="menu p-4 w-[30%] min-h-full bg-white text-base-content pt-32 text-3xl overflow-x-hidden">
+                        <p className="text-6xl italic font-bold w-full break-words mt-10">
+                            {selectedWordItem.word}
+                        </p>
+                        <p className="text-3xl w-full break-words mt-5">
+                            <HornIcon
+                                word={selectedWordItem.word}
+                                phonetic={selectedWordItem.phonetic}
+                            />
+                        </p>
+                        <p className="text-3xl w-full break-words mt-5">
+                            {selectedWordItem.explanations}
+                        </p>
+                        <div className="examples_containers mt-10">
+                            {selectedWordItem.examples.map((s, i) => {
+                                return (
+                                    <div
+                                        className="examples_item border-b pb-4 relative"
+                                        key={`${i}_example`}>
+                                        <p className="text-2xl w-full break-words italic">
+                                            {s.en}
+                                        </p>
+                                        <p className="text-2xl w-full break-words italic">
+                                            {s.zh}
+                                        </p>
+                                        <button
+                                            className="btn btn-circle btn-outline absolute top-0 left-0"
+                                            onClick={() => removeExample(i)}>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                className="h-6 w-6"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                stroke="currentColor">
+                                                <path
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    strokeWidth="2"
+                                                    d="M6 18L18 6M6 6l12 12"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                            <div className="mt-10">
+                                <div className="input_box">
+                                    <textarea
+                                        className="textarea textarea-bordered block w-full text-xl mb-10"
+                                        placeholder="Input the English Example"></textarea>
+                                    <textarea
+                                        className="textarea textarea-bordered block w-full text-xl"
+                                        placeholder="Input the Chinese Example"></textarea>
+                                </div>
+                                <button className="btn btn-outline btn-success text-xl mt-10">
+                                    Add Examples
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
