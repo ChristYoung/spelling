@@ -3,6 +3,7 @@ import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
+import { HighLightText } from '../components/widgets/HighLightText';
 import { HornIcon } from '../components/widgets/HornIcon';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import { getAllWordsListInDBSelector } from '../store/wordsReducer/wordsSlice';
@@ -173,7 +174,10 @@ export const Governance: React.FC = () => {
                                         className="examples_item border-b pb-4 relative"
                                         key={`${i}_example`}>
                                         <p className="text-2xl w-full break-words italic">
-                                            {s.en}
+                                            <HighLightText
+                                                example={s.en}
+                                                word={selectedWordItem.word}
+                                            />
                                         </p>
                                         <p className="text-2xl w-full break-words italic">
                                             {s.zh}

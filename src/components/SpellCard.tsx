@@ -155,18 +155,24 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                     </span>
                 </div>
                 {settingConfig.showExample && (
-                    <div className="examples py-4 text-3xl mb-10">
-                        <p className="my-3 italic">
-                            <HighLightText
-                                example={examples[0].en}
-                                word={word}
-                            />
-                        </p>
-                        {examples?.length > 0 && (
-                            <p className="text-2xl my-3 italic">
-                                {examples[0].zh}
-                            </p>
-                        )}
+                    <div>
+                        {examples.map(e => {
+                            return (
+                                <div
+                                    key={e.en}
+                                    className="examples py-4 text-3xl mb-2 border-t-2">
+                                    <p className="my-3 italic">
+                                        <HighLightText
+                                            example={e.en}
+                                            word={word}
+                                        />
+                                    </p>
+                                    <p className="text-2xl my-3 italic">
+                                        {e.zh}
+                                    </p>
+                                </div>
+                            );
+                        })}
                     </div>
                 )}
             </div>
