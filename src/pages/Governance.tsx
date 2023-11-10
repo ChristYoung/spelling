@@ -26,7 +26,7 @@ export const Governance: React.FC = () => {
     const removeExample = (_index: number) => {
         const currentExamples = [...selectedWordItem.examples];
         const newExamples = currentExamples.filter((_, i) => i !== _index);
-        // TODO: 删除单词后需要刷新下页面, 待研究如何解决, 可能将数据库的更新操作方到hooks中去, 目前暂时使用刷新的方式.
+        // TODO: 删除单词后的例句后需要刷新下页面, 待研究如何解决, 可能将数据库的更新操作方到hooks中去, 目前暂时使用刷新的方式.
         update({ ...selectedWordItem, examples: newExamples }).then(() => {
             setSelectedWordItem({ ...selectedWordItem, examples: newExamples });
         });
