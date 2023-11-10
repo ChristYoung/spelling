@@ -3,7 +3,7 @@ import { BiSolidBadgeCheck } from 'react-icons/bi';
 import { CiPickerEmpty } from 'react-icons/ci';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { HornIcon } from '../components/icons/HornIcon';
+import { HornIcon } from '../components/widgets/HornIcon';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import { getWordsListSelector } from '../store/wordsReducer/wordsSlice';
 import { WordsItem } from '../types';

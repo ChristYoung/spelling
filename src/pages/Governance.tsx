@@ -3,7 +3,7 @@ import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { HornIcon } from '../components/icons/HornIcon';
+import { HornIcon } from '../components/widgets/HornIcon';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import { getAllWordsListInDBSelector } from '../store/wordsReducer/wordsSlice';
 import { WordsItem } from '../types';

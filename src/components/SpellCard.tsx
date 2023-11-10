@@ -6,7 +6,7 @@ import { getSettingSelector } from '../store/settingReducer/settingSlice';
 import { WordsItem } from '../types';
 import { BANNED_KEYS } from '../utils';
 import { InputHandler } from './InputHandler';
-import { HornIcon } from './icons/HornIcon';
+import { HornIcon } from './widgets/HornIcon';
 
 export interface SpellCardProps extends WordsItem {
     char?: string;
