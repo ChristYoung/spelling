@@ -51,6 +51,8 @@ export const Governance: React.FC = () => {
 
     const onCloseDrawer = () => {
         setSelectedWordItem(null);
+        enRef.current.value = '';
+        zhRef.current.value = '';
     };
 
     return (
@@ -63,8 +65,6 @@ export const Governance: React.FC = () => {
                         drawerOpenCheckBoxRef.current.checked;
                     if (!drawerRefChecked) {
                         onCloseDrawer();
-                        enRef.current.value = '';
-                        zhRef.current.value = '';
                     }
                 }}
                 type="checkbox"
@@ -153,7 +153,7 @@ export const Governance: React.FC = () => {
                     aria-label="close sidebar"
                     className="drawer-overlay"></label>
                 {selectedWordItem && (
-                    <div className="menu p-4 w-[30%] min-h-full bg-white text-base-content pt-32 text-3xl overflow-x-hidden">
+                    <div className="menu p-4 w-[50%] min-h-full bg-white text-base-content pt-32 text-3xl overflow-x-hidden">
                         <p className="text-6xl italic font-bold w-full break-words mt-10">
                             {selectedWordItem.word}
                         </p>
@@ -179,7 +179,7 @@ export const Governance: React.FC = () => {
                                             {s.zh}
                                         </p>
                                         <button
-                                            className="btn btn-circle btn-outline absolute top-0 left-0"
+                                            className="btn btn-circle btn-outline absolute top-5 left-0"
                                             onClick={() => removeExample(i)}>
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
