@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useKeySound } from '../hooks/useKeySound';
@@ -6,6 +6,7 @@ import { getSettingSelector } from '../store/settingReducer/settingSlice';
 import { WordsItem } from '../types';
 import { BANNED_KEYS } from '../utils';
 import { InputHandler } from './InputHandler';
+import { HighLightText } from './widgets/HighLightText';
 import { HornIcon } from './widgets/HornIcon';
 
 export interface SpellCardProps extends WordsItem {
@@ -65,25 +66,6 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
             }
         }
     };
-    const highLightExample = useCallback(() => {
-        const example = examples?.length > 0 ? examples[0].en : null;
-        const _index = example
-            ? example.toLowerCase().indexOf(word.toLowerCase())
-            : -1;
-        if (_index < 0) {
-            return <>{example}</>;
-        }
-        const before = example.slice(0, _index);
-        const after = example.slice(_index + word.length);
-        const highLight = example.slice(_index, _index + word.length);
-        return (
-            <>
-                {before}
-                <span className="text-orange-700 font-bold">{highLight}</span>
-                {after}
-            </>
-        );
-    }, [examples, word]);
 
     const renderDisplayWords = () => {
         if (mode === 'SPELLING') {
@@ -174,7 +156,12 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                 </div>
                 {settingConfig.showExample && (
                     <div className="examples py-4 text-3xl mb-10">
-                        <p className="my-3 italic">{highLightExample()}</p>
+                        <p className="my-3 italic">
+                            <HighLightText
+                                example={examples[0].en}
+                                word={word}
+                            />
+                        </p>
                         {examples?.length > 0 && (
                             <p className="text-2xl my-3 italic">
                                 {examples[0].zh}
