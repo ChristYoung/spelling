@@ -34,11 +34,12 @@ export const InputWords: React.FC = () => {
 
         for (const w of wordsToAdd) {
             // 调用有道api获取单词的释义, 存入到数据库中.
-            const { phonetic, example, explanations, example_zh } =
-                await fetchWordDetails(w);
-            w.phonetic = phonetic;
-            w.examples = [{ en: example, zh: example_zh }];
-            w.explanations = explanations;
+            const wordResponse = await fetchWordDetails(w);
+            w.phonetic = wordResponse['phonetic'];
+            w.examples = [
+                { en: wordResponse['example'], zh: wordResponse['example_zh'] },
+            ];
+            w.explanations = wordResponse['explanations'];
         }
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();
