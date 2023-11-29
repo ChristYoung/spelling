@@ -1,15 +1,18 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { KeyBoard } from '../components/KeyBoard';
 import { SpellCard } from '../components/SpellCard';
+import { SpellOperator } from '../components/SpellOperator';
+import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import {
+    changeCurrentIndex,
+    changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
     getCurrentWordSelector,
     getWordsListSelector,
 } from '../store/wordsReducer/wordsSlice';
-import { SpellOperator } from '../components/SpellOperator';
-import { KeyBoard } from '../components/KeyBoard';
-import { useRef, useState } from 'react';
 import { WordsItem } from '../types';
-import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 
 export const SpellWords: React.FC = () => {
     const dispatch = useDispatch();
@@ -36,15 +39,21 @@ export const SpellWords: React.FC = () => {
             }
         } else {
             if (currentWordIndex === wordsList.length - 1) {
+                // 全部拼写完成
                 wrongWordsDialogRef.current.showModal();
+            } else {
+                dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
             }
         }
     };
     const confirmBtnClicked = () => {
         if (wrongWords.current.length > 0) {
-            dispatch({ type: WORDS_SAGA.RESET_WORDS, payload: wrongWords.current });
+            dispatch({
+                type: WORDS_SAGA.RESET_WORDS,
+                payload: wrongWords.current,
+            });
         } else {
-            dispatch({ type: WORDS_SAGA.RESET_ORIGINAL_WORDS });
+            dispatch(changeCurrentIndex(0));
         }
         wrongWords.current = [];
         wrongWordsDialogRef.current.close();
@@ -62,7 +71,12 @@ export const SpellWords: React.FC = () => {
                                     max="100"></progress>
                             </div>
                             <div className="text-2xl">
-                                 <span>{(currentWordIndex + 1) + '/' + wordsList.length}</span>
+                                <span>
+                                    {currentWordIndex +
+                                        1 +
+                                        '/' +
+                                        wordsList.length}
+                                </span>
                             </div>
                             <div className="container flex flex-grow flex-col items-center justify-center">
                                 <div className="relative flex w-full justify-center">
@@ -76,7 +90,11 @@ export const SpellWords: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                <SpellOperator onIgnoreWord={(w: WordsItem) => handleFinishSpell(w, 'WRONG')} />
+                <SpellOperator
+                    onIgnoreWord={(w: WordsItem) =>
+                        handleFinishSpell(w, 'WRONG')
+                    }
+                />
                 <KeyBoard onKeyDown={keyDownHandler} />
 
                 <dialog
@@ -85,10 +103,12 @@ export const SpellWords: React.FC = () => {
                     className="modal">
                     <div className="modal-box w-11/12 max-w-5xl">
                         <div className="py-4 text-2xl">
-                            { wrongWords?.current?.length > 0 && <p className="mt-10 text-3xl">
-                                The following words are spelled incorrectly,
-                                rewrite them?
-                            </p> }
+                            {wrongWords?.current?.length > 0 && (
+                                <p className="mt-10 text-3xl">
+                                    The following words are spelled incorrectly,
+                                    rewrite them?
+                                </p>
+                            )}
                             <div className="text-2xl mt-10 flex flex-wrap">
                                 {wrongWords.current.length > 0 ? (
                                     wrongWords.current.map(w => (
@@ -99,7 +119,10 @@ export const SpellWords: React.FC = () => {
                                         </span>
                                     ))
                                 ) : (
-                                    <div className="w-full text-center">🎉🎉🎉 Congratulations! No wrong words! 🎉🎉🎉</div>
+                                    <div className="w-full text-center">
+                                        🎉🎉🎉 Congratulations! No wrong words!
+                                        🎉🎉🎉
+                                    </div>
                                 )}
                             </div>
                         </div>

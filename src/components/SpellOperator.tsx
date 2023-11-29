@@ -4,7 +4,10 @@ import {
     AiOutlineHeart,
     AiTwotoneHeart,
 } from 'react-icons/ai';
+import { useIndexedDB } from 'react-indexed-db-hook';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import {
     changeCurrentWordByIndex,
     getCurrentWordIndexSelector,
@@ -12,16 +15,16 @@ import {
     getWordsListSelector,
     updateCurrentWordProperties,
 } from '../store/wordsReducer/wordsSlice';
-import { useIndexedDB } from 'react-indexed-db-hook';
-import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
-import { InputHandler } from './InputHandler';
 import { WordsItem } from '../types';
+import { InputHandler } from './InputHandler';
 
 export interface SpellOperatorProps {
-    onIgnoreWord?: (word: WordsItem) => void
+    onIgnoreWord?: (word: WordsItem) => void;
 }
 
-export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperatorProps) => {
+export const SpellOperator: React.FC<SpellOperatorProps> = (
+    props: SpellOperatorProps,
+) => {
     const dispatch = useDispatch();
     const { onIgnoreWord } = props;
     const { update } = useIndexedDB(DB_WORDS_TABLE_NAME.WORDS);
@@ -30,18 +33,14 @@ export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperator
     const wordsList = useSelector(getWordsListSelector);
     const switchNext = () => {
         if (currentWordIndex + 1 < wordsList.length) {
-            dispatch(
-                changeCurrentWordByIndex(currentWordIndex + 1),
-            );
-            onIgnoreWord(currentWord);
+            dispatch(changeCurrentWordByIndex(currentWordIndex + 1));
+            onIgnoreWord && onIgnoreWord(currentWord);
         }
     };
     const switchPrev = () => {
         if (currentWordIndex > 0) {
-            dispatch(
-                changeCurrentWordByIndex(currentWordIndex - 1),
-            );
-            onIgnoreWord(currentWord);
+            dispatch(changeCurrentWordByIndex(currentWordIndex - 1));
+            onIgnoreWord && onIgnoreWord(currentWord);
         }
     };
     const updateInput = (keyboardEventObj: { key: string; code?: string }) => {
@@ -108,7 +107,12 @@ export const SpellOperator: React.FC<SpellOperatorProps> = (props: SpellOperator
                     <AiOutlineArrowRight style={{ display: 'inline' }} />
                 </span>
             </div>
-            <InputHandler updateInput={updateInput} keyList={{ bannedList: [], allowedList: ['ArrowLeft', 'ArrowRight'] }}></InputHandler>
+            <InputHandler
+                updateInput={updateInput}
+                keyList={{
+                    bannedList: [],
+                    allowedList: ['ArrowLeft', 'ArrowRight'],
+                }}></InputHandler>
         </div>
     );
 };

@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useIndexedDB } from 'react-indexed-db-hook';
+
 import { DB_WORDS_TABLE_NAME } from '../DB/db.enum';
 import { fetchWordDetails } from '../hooks';
-import {
-    WordsItem
-} from '../types';
+import { WordsItem } from '../types';
 import { getDateString } from '../utils';
+
 // import Typo from 'typo-js';
 
 // const dictionary = new Typo('en_US');
@@ -34,11 +34,11 @@ export const InputWords: React.FC = () => {
 
         for (const w of wordsToAdd) {
             // 调用有道api获取单词的释义, 存入到数据库中.
-            const { phonetic, example, explanations, example_zh } = await fetchWordDetails(w);
+            const { phonetic, example, explanations, example_zh } =
+                await fetchWordDetails(w);
             w.phonetic = phonetic;
-            w.example = example;
+            w.examples = [{ en: example, zh: example_zh }];
             w.explanations = explanations;
-            w.example_zh = example_zh;
         }
         for (const word of wordsToAdd) {
             word.created_timestamp = getDateString();

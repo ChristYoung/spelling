@@ -1,9 +1,11 @@
+import { BiWalk } from 'react-icons/bi';
 import {
     BsEyeFill,
     BsFillLightningChargeFill,
     BsSpellcheck,
 } from 'react-icons/bs';
-import { BiWalk } from "react-icons/bi";
+import { SiNginxproxymanager } from 'react-icons/si';
+
 import { MenuCard, MenuCardProps } from '../components/MenuCard';
 
 const MenuList: MenuCardProps[] = [
@@ -30,6 +32,12 @@ const MenuList: MenuCardProps[] = [
         actionUrl: 'walk',
         icon: <BiWalk></BiWalk>,
         desc: 'Walk through all the words.(Including familiar or not)',
+    },
+    {
+        title: 'GOVERNANCE',
+        actionUrl: 'governance',
+        icon: <SiNginxproxymanager></SiNginxproxymanager>,
+        desc: 'Governance all of the words.',
     },
 ];
 

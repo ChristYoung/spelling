@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { FilterWordsType } from '../types';
 
 export interface FiltersProps {
@@ -23,14 +24,22 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
     };
     return (
         <div className="modal-box w-11/12 max-w-5xl px-10">
-            <h3 className="text-3xl">Filter what words you want to review222</h3>
+            <h3 className="text-3xl">
+                Filter what words you want to review222
+            </h3>
             <form method="dialog">
                 <div className="py-4 text-2xl">
                     <ul className="mt-10">
                         <li className="flex items-center justify-between px-10 mb-10">
                             <p>Rest original words:</p>
                             <div className="flex">
-                                <input type="checkbox" className="toggle toggle-md" name="resetOriginal" checked={formData.resetOriginal} onChange={handleChange} />
+                                <input
+                                    type="checkbox"
+                                    className="toggle toggle-md"
+                                    name="resetOriginal"
+                                    checked={formData.resetOriginal}
+                                    onChange={handleChange}
+                                />
                             </div>
                         </li>
                         <li className="flex items-center justify-between px-10 mb-10">
@@ -122,9 +131,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         name="timeFilter"
                                         onChange={handleChange}
                                         value={-7}
-                                        checked={
-                                            formData.timeFilter === -7
-                                        }
+                                        checked={formData.timeFilter === -7}
                                         className="radio radio-success mx-5 cursor-pointer"
                                     />
                                     last 7 days
@@ -138,9 +145,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         name="timeFilter"
                                         onChange={handleChange}
                                         value={-30}
-                                        checked={
-                                            formData.timeFilter === -30
-                                        }
+                                        checked={formData.timeFilter === -30}
                                         className="radio radio-success mx-5 cursor-pointer"
                                     />
                                     last 30 days
@@ -154,9 +159,7 @@ export const Filters: React.FC<FiltersProps> = (props: FiltersProps) => {
                                         name="timeFilter"
                                         onChange={handleChange}
                                         value={-90}
-                                        checked={
-                                            formData.timeFilter === -90
-                                        }
+                                        checked={formData.timeFilter === -90}
                                         className="radio radio-success mx-5 cursor-pointer"
                                     />
                                     last 90 days

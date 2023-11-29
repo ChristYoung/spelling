@@ -48,7 +48,10 @@ export const isChineseSymbol = (val: string): boolean =>
         val,
     );
 
-export const isLegal = (char: string, keyList: { bannedList: string[], allowedList: string[] }): boolean => {
+export const isLegal = (
+    char: string,
+    keyList: { bannedList: string[]; allowedList: string[] },
+): boolean => {
     const { bannedList, allowedList } = keyList;
     if (bannedList.length > 0) {
         if (bannedList.includes(char)) {

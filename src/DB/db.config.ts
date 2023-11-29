@@ -25,14 +25,9 @@ export const DBConfig = {
                     options: { unique: false },
                 },
                 {
-                    name: 'example', // 单词例句
-                    keypath: 'example',
+                    name: 'examples', // 单词例句
+                    keypath: 'examples',
                     options: { unique: false },
-                },
-                {
-                    name: 'example_zh',
-                    keypath: 'example_zh',
-                    options: { unique: false }
                 },
                 {
                     name: 'phonetic', // 单词音标

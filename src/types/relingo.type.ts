@@ -13,7 +13,7 @@ export interface OutRelingoWordItem {
     translations: Translation[];
     mastered: boolean;
     stared: boolean;
-    sentences: any[];
+    sentences: unknown[];
     needRevise: boolean;
 }
 
@@ -21,8 +21,8 @@ export interface TopLevelDefinition {
     partOfSpeech: string;
     language: string;
     definitions: DefinitionDefinition[];
-    synonyms: any[];
-    antonyms: any[];
+    synonyms: unknown[];
+    antonyms: unknown[];
 }
 
 export interface DefinitionDefinition {

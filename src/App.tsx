@@ -1,14 +1,15 @@
-import './App.css';
-import routerConfig from './routes';
-import { RouterProvider } from 'react-router-dom';
+import { useEffect } from 'react';
 import { initDB, useIndexedDB } from 'react-indexed-db-hook';
 import { IndexedDB } from 'react-indexed-db-hook';
-import { DBConfig } from './DB/db.config';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { RouterProvider } from 'react-router-dom';
+
+import './App.css';
+import { DBConfig } from './DB/db.config';
 import { DB_WORDS_TABLE_NAME } from './DB/db.enum';
-import { resetAllWordsListInDB } from './store/wordsReducer/wordsSlice';
+import routerConfig from './routes';
 import { WORDS_SAGA } from './store/wordsReducer/wordsSaga';
+import { resetAllWordsListInDB } from './store/wordsReducer/wordsSlice';
 
 initDB(DBConfig);
 

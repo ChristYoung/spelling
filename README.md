@@ -26,6 +26,23 @@ If you are developing a production application, we recommend updating the config
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
 
+# Vite创建React + Ts项目文档
+ - https://cn.vitejs.dev/guide/#scaffolding-your-first-vite-project
+ - 如果项目的package.json中使用了 "type": "module", 则.eslint配置文件需要修改为.cjs文件的后缀名.
+ - // https://segmentfault.com/a/1190000041954694
+ - // https://juejin.cn/post/7226345144995758135
+
+# 安装prettier-plugin-sort-imports来对import 进行sort排序
+ - yarn add prettier-plugin-sort-imports -D
+ - 在.prettierrc.cjs中添加如下配置
+   ```json
+   "importOrder": ["^@core/(.*)$", "^@server/(.*)$", "^@ui/(.*)$", "^[./]"],
+   "importOrderSeparation": true,
+   "importOrderSortSpecifiers": true,
+   "plugins": ["@trivago/prettier-plugin-sort-imports"]
+   ```
+
+
 # 使用Tailwind CSS 
 ## 安装
  - yarn add tailwindcss postcss autoprefixer -D

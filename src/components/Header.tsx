@@ -1,7 +1,10 @@
 import { useRef } from 'react';
 import { AiFillSetting, AiOutlineFilter } from 'react-icons/ai';
 import { useDispatch } from 'react-redux';
-import { SettingState, updateSetting } from '../store/settingReducer/settingSlice';
+import {
+    SettingState,
+    updateSetting,
+} from '../store/settingReducer/settingSlice';
 import { WORDS_SAGA } from '../store/wordsReducer/wordsSaga';
 import { Filters } from './Filters';
 import { Settings } from './Settings';
@@ -37,10 +40,15 @@ export const Header: React.FC = () => {
                 id="filter_dialog"
                 ref={filterDialogRef}
                 className="modal">
-                <Filters onConfirm={params => {
-                    dispatch({ type: WORDS_SAGA.FILTER_WORDS, payload: params });
-                    filterDialogRef.current.close();
-                }} />
+                <Filters
+                    onConfirm={params => {
+                        dispatch({
+                            type: WORDS_SAGA.FILTER_WORDS,
+                            payload: params,
+                        });
+                        filterDialogRef.current.close();
+                    }}
+                />
             </dialog>
 
             {/* setting dialog */}
@@ -48,12 +56,19 @@ export const Header: React.FC = () => {
                 id="setting_dialog"
                 ref={settingDialogRef}
                 className="modal">
-                    <Settings onConfirm={(configs: SettingState) => {
+                <Settings
+                    onConfirm={(configs: SettingState) => {
                         dispatch(updateSetting(configs));
-                        const orderType = configs.randomOrder ? 'RANDOM' : 'ASCENDING';
-                        dispatch({ type: WORDS_SAGA.RESET_WORDS_ORDER, payload: { orderType } });
+                        const orderType = configs.randomOrder
+                            ? 'RANDOM'
+                            : 'ASCENDING';
+                        dispatch({
+                            type: WORDS_SAGA.RESET_WORDS_ORDER,
+                            payload: { orderType },
+                        });
                         settingDialogRef.current.close();
-                    }} />
+                    }}
+                />
             </dialog>
         </>
     );

@@ -3,10 +3,14 @@ export interface WordsItem {
     familiar: boolean;
     created_timestamp?: number;
     explanations?: string[]; // 释义
-    example?: string; // 例句
-    example_zh?: string;
+    examples?: ExampleItem[];
     id?: number;
     phonetic?: string; // 音标
+}
+
+export interface ExampleItem {
+    zh: string;
+    en: string;
 }
 
 export interface OutputYouDaoBaseResponse<T> {
@@ -19,10 +23,12 @@ export interface OutputYouDaoBaseResponse<T> {
 }
 
 export interface OutputYouDaoExplanationData {
-    entries: Array<{
-        explain: string;
-        entry?: string;
-    }>;
+    entries: Array<OutPutEntriesItem>;
+}
+
+export interface OutPutEntriesItem {
+    explain: string;
+    entry?: string;
 }
 
 export * from './filter.type';
