@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 import eslintPlugin from 'vite-plugin-eslint';
 
 // https://vitejs.dev/config/
@@ -35,16 +35,16 @@ export default defineConfig({
     optimizeDeps: {
         include: ['typo-js'],
     },
-    server: {
-        proxy: {
-            '/suggest': {
-                target: 'https://dict.youdao.com',
-                changeOrigin: true,
-            },
-            '/jsonapi': {
-                target: 'https://dict.youdao.com',
-                changeOrigin: true,
-            },
-        },
-    },
+    // server: {
+    //     proxy: {
+    //         '/suggest': {
+    //             target: 'https://dict.youdao.com',
+    //             changeOrigin: true,
+    //         },
+    //         '/jsonapi': {
+    //             target: 'https://dict.youdao.com',
+    //             changeOrigin: true,
+    //         },
+    //     },
+    // },
 });

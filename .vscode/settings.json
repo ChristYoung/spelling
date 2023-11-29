@@ -10,5 +10,6 @@
         "sents",
         "trivago",
         "usphone"
-    ]
+    ],
+    "commentTranslate.hover.enabled": true
 }
