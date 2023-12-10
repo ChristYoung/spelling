@@ -1,12 +1,14 @@
 import { useSelector } from 'react-redux';
 import useSound from 'use-sound';
+
 import {
     SettingState,
     getSettingSelector,
 } from '../store/settingReducer/settingSlice';
 import noop from '../utils/noop.util';
 
-export const SOUND_RESOURCES_PREFIX = '/sounds/';
+export const SOUND_RESOURCES_PREFIX =
+    process.env.NODE_ENV === 'production' ? '/spelling/sounds/' : '/sounds/';
 export const WRONG_SOUND = 'beep.wav';
 export const CORRECT_SOUND = 'correct.wav';
 export const TYPING_SOUND = 'Cherry MX Blacks.mp3';
