@@ -1,4 +1,5 @@
 import { useCallback, useEffect } from 'react';
+
 import { isChineseSymbol, isLegal } from '../utils';
 
 export interface UpdateInputFn {
