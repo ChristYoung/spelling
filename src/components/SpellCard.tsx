@@ -139,7 +139,9 @@ export const SpellCard: React.FC<SpellCardProps> = (props: SpellCardProps) => {
                             <HornIcon
                                 word={word}
                                 ref={hornIconRef}
-                                autoPlay={true}
+                                autoPlay={
+                                    settingConfig.autoPlayWordPronunciation
+                                }
                                 className="absolute -right-12 top-1/2 h-9 w-9 -translate-y-1/2 transform"
                             />
                         ) : (
