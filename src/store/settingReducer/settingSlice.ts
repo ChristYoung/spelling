@@ -15,7 +15,7 @@ export type SettingState = {
 export const getSettingSelector = (state: GlobalStoreType) => state.setting;
 
 export const INIT_STATE: SettingState = {
-    autoPlayWordPronunciation: true,
+    autoPlayWordPronunciation: false,
     muteKeyBoardSound: false,
     randomOrder: false,
     onlyShowExplanationWhenSpelling: false,
