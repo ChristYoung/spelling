@@ -103,7 +103,7 @@ export const Governance: React.FC = () => {
                 <table className="table table-lg">
                     <thead className="text-3xl">
                         <tr>
-                            <th>Uid</th>
+                            <th>Order</th>
                             <th>Word</th>
                             <th>Phonetic</th>
                             <th>Operators</th>
@@ -111,10 +111,10 @@ export const Governance: React.FC = () => {
                     </thead>
                     <tbody>
                         {wordsList?.length > 0 &&
-                            wordsList.map(w => {
+                            wordsList.map((w, _index) => {
                                 return (
                                     <tr key={`${w.id}_${w.word}`}>
-                                        <td className="text-2xl">{w.id}</td>
+                                        <td className="text-2xl">{_index}</td>
                                         <td className="text-3xl italic">
                                             {w.word}
                                         </td>
