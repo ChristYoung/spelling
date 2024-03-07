@@ -17,12 +17,19 @@ export const INIT_STATE: WordsListState = {
     currentWord: null,
 };
 
+// 从Redux中获取单词列表
 export const getWordsListSelector = (state: GlobalStoreType) =>
     state.wordsList.words;
+
+// 从本地数据库中获取单词列表
 export const getAllWordsListInDBSelector = (state: GlobalStoreType) =>
     state.wordsList.allWordsInDB;
+
+// 获取当前单词的游标
 export const getCurrentWordIndexSelector = (state: GlobalStoreType) =>
     state.wordsList.currentWordIndex;
+
+// 获取当前单词
 export const getCurrentWordSelector = (state: GlobalStoreType) =>
     state.wordsList.currentWord;
 

@@ -1,0 +1,30 @@
+{
+    "snippet_saga": {
+        "prefix": "saga",
+        "body": [
+            "import { PayloadAction } from '@reduxjs/toolkit';",
+            "import { put, select, takeEvery } from 'redux-saga/effects';",
+            "",
+            "export const $TM_FILENAME_BASE = {};",
+            "",
+            "export function* watch$TM_FILENAME_BASE() {",
+            "    yield takeEvery($TM_FILENAME_BASE.,);",
+            "}"
+        ]
+    },
+    "snippet_slcie": {
+        "prefix": "slice",
+        "body": [
+            "import { createSlice, PayloadAction } from '@reduxjs/toolkit';",
+            "",
+            "const $TM_FILENAME_BASE = createSlice({",
+            "    name: '$TM_FILENAME_BASE',",
+            "    initialState: {},",
+            "    reducers: {},",
+            "});",
+            "",
+            "export const {} = $TM_FILENAME_BASE.actions;",
+            "export default $TM_FILENAME_BASE.reducer;"
+        ]
+    }
+}
